@@ -4,24 +4,27 @@ const
 
 
 const _fetch = (command) => {
-    return superagent.get(`${config.url}/${command}`)
+    return superagent.get(`${config.url}/${command}?apikey=84e3724042b71f9fe7a8456a11068da3`)
         .then(response => response.body)
         .catch(error => error.response.body)
 }
 
-exports.deck = (shuffle) => {
-    if (shuffle)
-        return _fetch('deck/new/shuffle/?deck_count=1')
-    else
-        return _fetch('deck/new/')
+//Fetches lists of comic characters with optional filters. See notes on individual parameters below.
+exports.characters = () => {
+        return _fetch('v1/public/characters')
+   
 }
 
-exports.draw = (deck, n) => {
-    return _fetch(`/deck/${deck}/draw/?count=${n}`)
-}
-
-exports.shuffle = (deck, n) => {
-    return _fetch(`deck/${deck}/shuffle/`)
+exports.getcharacterbyid = (id) => {
+    return _fetch(`v1/public/characters/${id}`)
 }
 
 
+
+
+//https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=84e3724042b71f9fe7a8456a11068da3&hash=7581c5870f9020b12ea7ec3c3c454c69
+
+
+//public key :84e3724042b71f9fe7a8456a11068da3
+
+//private key: 96f392916eb4bdfb4f9175b03dfa8366f97f4d5d
