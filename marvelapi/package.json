@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "vivek agarwal",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.85.0",
+    "superagent": "^3.8.2"
+  }
 }

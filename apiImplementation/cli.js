@@ -1,5 +1,6 @@
 const
-application = require('./application'),
+comicapplication = require('./comicapplication'),
+characterapplication = require('./characterapplication'),
 yargs = require('yargs')
 
 const flags = yargs.usage('$0: Usage <cmd> [options]')
@@ -13,28 +14,37 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
             describe: 'This method fetches a single character resource.',
             default: null
         })
+         .option('charactername', {
+            alias:'name',
+            describe: 'This method fetches a single character resource by name.',
+            default: null
+        })
         .option('comics', {
             alias:'c',
             describe: 'Fetches lists of comics containing a specific character.Need to be used along with id',
+             type:'boolean',
         default: false
  })
          .option('events', {
         describe: 'Fetches lists of events in which a specific character appears, with optional filters.Need to be used along with id',
          alias:'e',
+          type:'boolean',
           default: false
     })
        .option('series', {
         describe: 'Fetches lists of events in which a specific character appears, with optional filters.Need to be used along with id',
          alias:'s',
+         type:'boolean',
           default: false
     })
          .option('stories', {
         describe: 'Fetches lists of events in which a specific character appears, with optional filters.Need to be used along with id',
          alias:'st',
+         type:'boolean',
           default: false
     })
     },
-    handler: (argv) => { application.run(argv) }
+    handler: (argv) => { characterapplication.run(argv) }
 })
 
 .command({
@@ -68,7 +78,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
        default: false
  })
     },
-    handler: (argv) => { application.run(argv) }
+    handler: (argv) => { comicapplication.run(argv) }
 })
 .command({
     command: 'creators',
@@ -101,7 +111,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
        default: false
  })
     },
-    handler: (argv) => { application.run(argv) }
+    handler: (argv) => { comicapplication.run(argv) }
 })
 .command({
     command: 'events',
@@ -134,7 +144,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
        default: false
  })
     },
-    handler: (argv) => { application.run(argv) }
+    handler: (argv) => {  comicapplication.run(argv) }
 })
 .command({
     command: 'stories',
@@ -167,7 +177,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
        default: false
  })
     },
-    handler: (argv) => { application.run(argv) }
+    handler: (argv) => {  comicapplication.run(argv) }
 })
 
 
