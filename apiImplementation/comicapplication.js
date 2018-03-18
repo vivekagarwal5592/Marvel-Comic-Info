@@ -1,100 +1,126 @@
 
 const marvel = require('marvelapi')
 var Radio = require('prompt-radio');
+const  Inquirer = require('inquirer');
 
 module.exports.run = options => {
 
 	//console.log(options)
 
-	if(options.id ==null && options.name==null){
+	if(options.id ==null && options.title==null){
 		marvel.comics()
 		.then(result =>{ //console.log(result)
-
-
 			result.data.results.forEach(items=>{
 
 				console.log(`Comic Id:${items.id}`)
-				console.log(`Comic Name: ${items.name}`)
-				if(items.description != ''){
+				console.log(`Comic Title: ${items.title}`)
+				if(items.description != '' && items.description != null){
 					console.log(`About the Comic:${items.description}`)
 				}
 				else{
 					console.log(`About the Comic: Sorry! No Description available`)
 				}
 
-				console.log(`Appeared in Comics: ${items.comics.available}`)
+				items.urls.forEach(u=>{
+					console.log(`URL: ${u.url}`)
+				});
+
+				/*console.log(`Appeared in Comics: ${items.comics.available}`)
 				console.log(`Appeared in Series: ${items.series.available}`)
 				console.log(`Appeared in Stories: ${items.stories.available}`)
-				console.log(`Appeared in Events: ${items.events.available}`)
+				console.log(`Appeared in Events: ${items.events.available}`)*/
 				console.log()
 
 			});
 		});
 	}
 
-	else if(options.name !=null){
-
+	else if(options.title !=null){
+		console.log(options.title)
 //console.log(options.name)
-marvel.getcharacterbyname(options.name)
+marvel.getcomicbytitle(options.title)
 		.then(result =>{ //console.log(result)
 //	console.log(options.name)
 
 result.data.results.forEach(items=>{
 
-	console.log(`Character Id:${items.id}`)
-	console.log(`Charcater Name: ${items.name}`)
+	console.log(`Comic id:${items.id}`)
+	console.log(`Comic title: ${items.title}`)
 	if(items.description != ''){
-		console.log(`About the Charcater:${items.description}`)
+		console.log(`About the Comic:${items.description}`)
 	}
 	else{
-		console.log(`About the Charcater: Sorry! No Description available`)
+		console.log(`About the Comic: Sorry! No Description available`)
 	}
 
-	console.log(`Appeared in Comics: ${items.comics.available}`)
+
+	items.urls.forEach(u=>{
+		console.log(`URL: ${u.url}`)
+	});
+
+	/*console.log(`Appeared in Comics: ${items.comics.available}`)
 	console.log(`Appeared in Series: ${items.series.available}`)
 	console.log(`Appeared in Stories: ${items.stories.available}`)
-	console.log(`Appeared in Events: ${items.events.available}`)
+	console.log(`Appeared in Events: ${items.events.available}`)*/
 	console.log()
 
 //return items.id
 });
 return result.data.results[0].id
-}).then(charcaterbyid=>{
+}).then(comicid=>{
 
-givechoices(charcaterbyid)
 
+	givechoices(comicid)
+	console.log()
 	
 
 });
 }
 
 else if(options.id !=null ){
-//	console.log(options)
+	console.log(options)
 //marvel.getcharacterbyid(options.id)
-if(options.comics == true){
-getcharacterbycomics(options.ids)
+if(options.characters == true){
+	getcharacters(options.ids)
 }
 
 if(options.events == true){
-getcharacterbyevents(options.id)
+	getevents(options.id)
 }
 if(options.series == true){
-getcharacterbyseries(options.id)
+	getseries(options.id)
 }
 if(options.stories == true){
-getcharacterbystories(options.id)
+	getstories(options.id)
 }
 
 
 }
 
+getcreators = (comicid)=>{
+	marvel.getcomicsbycreators(comicid)
+	.then(result=>{
+		console.log()
+		result.data.results.forEach(items=>{
+			console.log(`FullName:${items.fullName}`)
+			
+			items.urls.forEach(url=>{
+				console.log(`URL:${url.url}`)
+			})
+
+			console.log()
+		});
+	})
 
 
+	givechoices(comicid)
+	console.log()
+}
 
 
-getcharacterbystories = (charcaterbyid)=>{
+getstories= (comicid)=>{
 
-marvel.getcharacterbystories(charcaterbyid)
+	marvel.getcomicsbystories(comicid)
 	.then(result=>{
 
 
@@ -115,125 +141,134 @@ marvel.getcharacterbystories(charcaterbyid)
 		});
 	})
 
-	givechoices(charcaterbyid)
+
+	givechoices(comicid)
+	console.log()
 }
 
 
-getcharacterbyseries = (charcaterbyid)=>{
- 	marvel.getcharacterbyseries(charcaterbyid)
+getevents = (comicid)=>{
+	marvel.getcomicsbyevent(comicid)
 	.then(result=>{
-		result.data.results.forEach(items=>{
-			console.log(`Series Id:${items.id}`)
-			console.log(`Series title: ${items.title}`)
-			if(items.description != '' && items.description != null  ){
-				console.log(`Story:${items.description}`)
-			}
-			else{
-				console.log(`About the Series Sorry! No Description available`)
-			}
 
-			items.urls.forEach(url=>{
-				console.log(`URL:${url.url}`)
-			})
+		if(result.data.results.length ==0){
+			console.log("Sorry! No results")
+		}
+		else{
+			result.data.results.forEach(items=>{
 
-			console.log()
-		});
+				console.log(`Event Id:${items.id}`)
+				console.log(`Event title: ${items.title}`)
+				if(items.description != '' && items.description != null  ){
+					console.log(`Story:${items.description}`)
+				}
+				else{
+					console.log(`About the Comic: Sorry! No Description available`)
+				}
+
+				items.urls.forEach(url=>{
+					console.log(`URL:${url.url}`)
+				})
+
+				console.log()
+			});
+		}
 	})
 
-	givechoices(charcaterbyid)
+
+	givechoices(comicid)
+	console.log()
 }
 
+getcharacters = (comicid)=>{
+	
 
-getcharacterbyevents = (charcaterbyid)=>{
-	marvel.getcharacterbyevent(charcaterbyid)
-	.then(result=>{
-		result.data.results.forEach(items=>{
-
-			console.log(`Event Id:${items.id}`)
-			console.log(`Event title: ${items.title}`)
-			if(items.description != '' && items.description != null  ){
-				console.log(`Story:${items.description}`)
-			}
-			else{
-				console.log(`About the Comic: Sorry! No Description available`)
-			}
-
-			items.urls.forEach(url=>{
-				console.log(`URL:${url.url}`)
-			})
-
-			console.log()
-		});
-	})
-
-	givechoices(charcaterbyid)
-}
-
-getcharacterbycomics = (charcaterbyid)=>{
-marvel.getcharacterbycomic(charcaterbyid)
+	marvel.getcomicsbycharacter(comicid)
 	.then(result=>{
 
-		result.data.results.forEach(items=>{
+		if(result.data.results.length ==0){
+			console.log("\nSorry! No Data available")
+		}
+		else{
+			result.data.results.forEach(items=>{
 
-			console.log(`Comic Id:${items.id}`)
-			console.log(`Comic title: ${items.title}`)
-			if(items.description != '' && items.description != null  ){
-				console.log(`Story:${items.description}`)
-			}
-			else{
-				console.log(`About the Comic: Sorry! No Description available`)
-			}
+				console.log(`Character Id:${items.id}`)
+				console.log(`Character title: ${items.title}`)
+				if(items.description != '' && items.description != null  ){
+					console.log(`Story:${items.description}`)
+				}
+				else{
+					console.log(`About the Comic: Sorry! No Description available`)
+				}
 
-			items.urls.forEach(url=>{
-				console.log(`URL:${url.url}`)
-			})
+				items.urls.forEach(url=>{
+					console.log(`URL:${url.url}`)
+				})
 
-			console.log()
-		});
-
+				console.log()
+			});
+		}
 
 	});
-	givechoices(charcaterbyid)
+	givechoices(comicid)
+	console.log()
 
 }
 
 
-givechoices =(charcaterbyid) =>{
+givechoices =(comicid) =>{
 
-prompt.run()
+	object = {}
 
-	.then(answer=> {
-		if(answer[0] == '1'){
-getcharacterbycomics(charcaterbyid)
-		}
-		else if(answer[0] == '2'){
-getcharacterbyseries(charcaterbyid)
-		}
-		else if(answer[0] == '3'){
-getcharacterbystories(charcaterbyid)
-		}
-		else if(answer[0] == '4'){
-getcharacterbyevents(charcaterbyid)
-		}
+	prompt.run().then(answer=> {
+		object.choice = answer[0] 
+}).then((choice)=>{
+	Inquirer.prompt(questions)
+	.then((ans)=>{
+		object.comicid = ans;
 		
+	if(object.choice = '1'){
+			
+getcharacters(object.comicid.answer)
+}
+else if(object.choice = '2'){
+	object.choice = 2
+getcreators(object.comicid.answer)
+}
+else if(object.choice = '3'){
+	object.choice = 3
+getstories(object.comicid.answer)
+}
+else if(object.choice = '4'){
+	object.choice = 4
+getevents(object.comicid.answer)
+}
+console.log(object)
 
-	//	console.log(charcaterbyid)
-	});
+	})
+});
 
 }
 
 
 var prompt = new Radio({
-	name: 'colors',
+	name: 'choice',
 	message: 'Want to know more about the character?',
 	choices: [
-	'1.Appeared in Comics',
-	'2.Appeared in Series',
+	'1.Comic characters',
+	'2.Comic Creators',
 	'3.Appeared in Stories',
-	'4.Appeared in Events',
+	'4.Fetches lists of events in which a specific comic appears',
 	'5.Exit',
 	]
 });
 
+const questions = [
+{
+	type : 'input',
+	name: 'answer',
+	message : 'Enter firstname ...',
+}
+];
 
 }

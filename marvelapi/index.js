@@ -19,6 +19,12 @@ const _fetchbyname = (command,specialname) => {
         .catch(error => error.response.body)
 }
 
+const _fetchbytitle = (command,specialname) => {
+    return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&title=${specialname}`)
+        .then(response => response.body)
+        .catch(error => error.response.body)
+}
+
 //Fetches lists of comic characters with optional filters. See notes on individual parameters below.
 exports.characters = () => {
         return _fetch('v1/public/characters')  
@@ -55,30 +61,31 @@ exports.comics = () => {
         return _fetch('v1/public/comics') 
 }
 
-exports.getcomicbyname = (comicname) => {
-        return _fetchbyname('v1/public/comics',comicname)
+exports.getcomicbytitle = (title) => {
+        return _fetchbytitle('v1/public/comics',title)
 }
 
-exports.getcomicbyid = (id) => {
+exports.getcomicsbyid = (id) => {
     return _fetch(`v1/public/comics/${id}`)
 }
 
-exports.getcomicbycharacter = (id) => {
+exports.getcomicsbycharacter = (id) => {
+	console.log(id)
     return _fetch(`v1/public/comics/${id}/characters`)
 }
 
-exports.getcomicbyevent = (id) => {
-    return _fetch(`v1/public/comics/${id}/events`)
+exports.getcomicsbycreators = (id) => {
+    return _fetch(`v1/public/comics/${id}/creators`)
 }
 
-exports.getcomicbyseries = (id) => {
-    return _fetch(`v1/public/comics/${id}/series`)
-}
-
-exports.getcomicbystories = (id) => {
+exports.getcomicsbystories = (id) => {
     return _fetch(`v1/public/comics/${id}/stories`)
 }
 
+
+exports.getcomicsbyevent = (id) => {
+    return _fetch(`v1/public/comics/${id}/events`)
+}
 
 
 

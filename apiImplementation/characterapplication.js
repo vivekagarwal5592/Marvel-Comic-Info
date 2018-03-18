@@ -172,9 +172,7 @@ getcharacterbyevents = (charcaterbyid)=>{
 getcharacterbycomics = (charcaterbyid)=>{
 marvel.getcharacterbycomic(charcaterbyid)
 	.then(result=>{
-
 		result.data.results.forEach(items=>{
-
 			console.log(`Comic Id:${items.id}`)
 			console.log(`Comic title: ${items.title}`)
 			if(items.description != '' && items.description != null  ){

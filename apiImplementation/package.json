@@ -9,6 +9,7 @@
   "author": "vivek agarwal",
   "license": "ISC",
   "dependencies": {
+    "inquirer": "^5.1.0",
     "marvelapi": "file:../marvelapi",
     "prompt-radio": "^1.2.1",
     "yargs": "^11.0.0"
