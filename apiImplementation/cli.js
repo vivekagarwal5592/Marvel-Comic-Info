@@ -1,6 +1,7 @@
 const
 comicapplication = require('./comicapplication'),
 characterapplication = require('./characterapplication'),
+storiesapplication = require('./storiesapplication')
 Creator=require('./Creator')
 yargs = require('yargs')
 
@@ -171,7 +172,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
 })
 .command({
     command: 'stories',
-    desc: 'Fetches lists of crators',
+    desc: 'Fetches lists of Stories',
     builder: (yargs) => {
         return yargs
         .option('storiesid', {
@@ -187,24 +188,30 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
  })
          .option('comics', {
             alias:'comic',
-            describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            describe: 'Fetches lists of comics which appear in a specific stories. Needs to be used in conjuction with stories id',
             type:'boolean',
         default: false
  })
           .option('creators', {
             alias:'creator',
-            describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            describe: 'Fetches lists of creators whose work appear in a specific story. Needs to be used in conjuction with stories id',
             type:'boolean',
         default: false
  })
            .option('events', {
             alias:'e',
-            describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            describe: 'Fetches lists of events which appear in a specific stories. Needs to be used in conjuction with stories id',
             type:'boolean',
        default: false
  })
+ .option('series', {
+  alias:'s',
+  describe: 'Fetches lists of comic series in which the specified story takes place. Needs to be used in conjuction with stories id',
+  type:'boolean',
+default: false
+})
     },
-    handler: (argv) => {  comicapplication.run(argv) }
+    handler: (argv) => {  storiesapplication.start(argv) }
 })
 
 
