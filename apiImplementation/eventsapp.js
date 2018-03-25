@@ -117,11 +117,11 @@ const
         name: 'eventCat',
         message: 'Want to know more about the event?',
         choices: [
-            '1. Appeared in Creators.',
-            '2. Appeared in Characters',
-            '3. Appeared in Stories',
-            '4. Appeared in Comics',
-            '5. Appeared in Series',
+            '1. Creators of this Event.',
+            '2. Characters related to this Event.',
+            '3. Stories in this Event.',
+            '4. Comics in this Event.',
+            '5. Series in this Event.',
             '6. Exit'
         ]
     });
