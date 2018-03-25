@@ -1,2 +1,7 @@
+#Ignore node modules directories:
 /apiImplementation/node_modules/
 /marvelapi/node_modules/
+
+#Ignore IDE files:
+.DS_Store
+.vscode
