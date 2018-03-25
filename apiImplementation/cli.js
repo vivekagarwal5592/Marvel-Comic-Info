@@ -1,17 +1,19 @@
 const
 comicapplication = require('./comicapplication'),
 characterapplication = require('./characterapplication'),
+Creator=require('./Creator')
 yargs = require('yargs')
 
 const flags = yargs.usage('$0: Usage <cmd> [options]')
 .command({
-    command: 'characters',
+    command:'characters',
     desc: 'Fetches lists of comic characters',
     builder: (yargs) => {
         return yargs
         .option('characterid', {
             alias:'id',
             describe: 'This method fetches a single character resource.',
+
             default: null
         })
          .option('charactername', {
@@ -90,37 +92,45 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
     handler: (argv) => { comicapplication.run(argv) }
 })
 .command({
-    command: 'creators',
-    desc: 'Fetches lists of crators',
+    command:'creators',
+    desc: 'Fetches lists of creators',
     builder: (yargs) => {
         return yargs
         .option('creatorsid', {
             alias:'id',
-            describe: 'This method fetches a single comic resource.',
+            describe: 'This method fetches a single record for the creator.',
             default: null
         })
-        .option('characters', {
-            alias:'char',
-            describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
-        default: false
+        .option('creator_name', {
+            alias:'name',
+            describe: 'Fetches specific creators Record.' ,
+        default: null
  })
          .option('comics', {
             alias:'comic',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
         default: false
  })
-          .option('events', {
-            alias:'e',
+          .option('series', {
+            alias:'series',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
         default: false
  })
            .option('stories', {
-            alias:'s',
+            alias:'story',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
        default: false
  })
     },
-    handler: (argv) => { comicapplication.run(argv) }
+    handler: (argv) => {
+      if(argv.story === true)
+      {
+        Creator.getcreator_stories(argv.id)
+      }
+      else {
+        Creator.run(argv)
+      }
+       }
 })
 .command({
     command: 'events',

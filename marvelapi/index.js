@@ -19,15 +19,20 @@ const _fetchbyname = (command,specialname) => {
         .catch(error => error.response.body)
 }
 
+
+const _fetchbyfirstname = (command,specialname) => {
+    return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&firstName=${specialname}`)
+
 const _fetchbytitle = (command,specialname) => {
     return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&title=${specialname}`)
+
         .then(response => response.body)
         .catch(error => error.response.body)
 }
 
 //Fetches lists of comic characters with optional filters. See notes on individual parameters below.
 exports.characters = () => {
-        return _fetch('v1/public/characters')  
+        return _fetch('v1/public/characters')
 }
 
 exports.getcharacterbyname = (charcatername) => {
@@ -58,7 +63,7 @@ exports.getcharacterbystories = (id) => {
 
 
 exports.comics = () => {
-        return _fetch('v1/public/comics') 
+        return _fetch('v1/public/comics')
 }
 
 exports.getcomicbytitle = (title) => {
@@ -88,12 +93,50 @@ exports.getcomicsbyevent = (id) => {
 }
 
 
+// All the functions of Comics Creators
+
+//This will fetch all the name of the creator and number of comics ,series,stories and events that creators have.
+exports.getcreator=()=>
+{
+  return _fetch('v1/public/creators')
+}
+
+// To fetch the particular creator by id
+exports.getcreatorbyid =(id) => {
+    return _fetch(`v1/public/creators/${id}`)
+}
+
+// Addtional method to fetch the particular creator by name
+exports.getcreatorbyname =(creatorname) =>{
+  return _fetchbyfirstname('v1/public/creators',creatorname)
+}
+
+// Fetches lists of comics in which the work of a specific creator appears
+
+exports.getcreatorbycomics =(id)=>{
+
+  return _fetch(`v1/public/creators/${id}/comics`)
+  }
+
+// Fetches lists of events featuring the work of a specific creator
+  exports.getcreatorbyevents =(id)=>{
+
+    return _fetch(`v1/public/creators/${id}/events`)
+  }
+
+  //Fetches lists of comic series in which a specific creator's work appears
+exports.getcreatorbyseries=(id)=>{
+return _fetch(`v1/public/creators/${id}/series`)
+}
+
+//Fetches lists of comic stories by a specific creator
+exports.getcreatorbystories=(id)=>{
+
+    return _fetch(`v1/public/creators/${id}/stories`)
 
 
 
-
-
-
+}
 
 
 
