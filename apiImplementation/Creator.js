@@ -44,56 +44,39 @@ module.exports.run = options => {
 
 else if(options.name !=null)
   {
-
-marvel.getcreatorbyname(options.name)
-		.then(result =>{
+		let list_name=[]
+		marvel.getcreatorbyname(options.name)
+			.then(result =>{
 			if(result.data.results == '')
 			{
 						console.log(` OOPS, Sorry No information available for ${options.name} in the API`);
-							givechoices_null()
+						givechoices_null()
 			}
 			else {
 					result.data.results.forEach(api_name=>{
-						console.log("\n");
-						console.log(`Creator Id:${api_name.id}`)
-    console.log("-----------------------------------");
-		if(api_name.fullName == '')
-		{
-			console.log("Creator Name: No Information");
-		}
-		else {
-				console.log(`Creator Name: ${api_name.fullName}`)
-		}
-	    console.log("-----------------------------------");
-  console.log(`Total comics of Creator: ${api_name.comics.available}`);
-  console.log("-----------------------------------");
-				console.log(`Total Series of Creator: ${api_name.series.available}`)
-      console.log("-----------------------------------");
-			  console.log(`Total stories: ${api_name.stories.available}`);
-  		console.log("-----------------------------------");
-			if(api_name.events.available == '')
-			{
-				console.log("Total Events: No Information");
-			}
-			else {
-				console.log(`Total Events: ${api_name.events.available}`);
-			}
-console.log("\n");
+						value= api_name.fullName+':'+api_name.id
+						list_name.push(value)
 })
-return result.data.results[0].id
-
+return list_name
 }
-}).then(creatorsid=>{
+}).then(list=>{
+	if(list !=null)
+	{
+		givechoices_creator_list(list)
+	}
 
-	givechoices(creatorsid)
 })
 }
 
 else if(options.id !=null )
 {
-//  console.log(option.id);
+if(options.comic == true)
+{
+getcreatorbycomics(options.id)
+}
 
-  marvel.getcreatorbyid(options.id)
+else {
+  	marvel.getcreatorbyid(options.id)
   		.then(result =>{
 
 				if(result.code==404)
@@ -130,20 +113,20 @@ console.log("\n");
 console.log("\n");
 })
 	return result.data.results[0].id
+	return
 }
 }).then(creatorsid=>{
+	if(options.comic != true)
+	{
+			givechoices_creator(creatorsid)
+	}
 
-	givechoices(creatorsid)
 });
-
 }
-
-
+}
 }
 
 getcreator_stories_id = (creatorsid)=>{
-
-//console.log(`creators id is ${creatorsid}`);
 marvel.getcreatorbyid(creatorsid)
 	.then(result=>{
 		result.data.results.forEach(api_result_story=>{
@@ -164,7 +147,7 @@ marvel.getcreatorbyid(creatorsid)
 		});
 	})
 })
-	givechoices(creatorsid)
+	givechoices_creator(creatorsid)
 }
 
 getcreator_series_id = (creatorsid)=>{
@@ -180,7 +163,7 @@ getcreator_series_id = (creatorsid)=>{
 			});
 		})
 	})
-		givechoices(creatorsid)
+		givechoices_creator(creatorsid)
 }
 
 
@@ -202,7 +185,7 @@ getcreator_events_id = (creatorsid)=>{
 
 		})
 	})
-		givechoices(creatorsid)
+		givechoices_creator(creatorsid)
 }
 
 getcreator_comics_id = (creatorsid)=>{
@@ -217,7 +200,7 @@ getcreator_comics_id = (creatorsid)=>{
 			});
 		})
 	})
-		givechoices(creatorsid)
+		givechoices_creator(creatorsid)
 }
 
 getRandom_creators =()=>
@@ -263,13 +246,14 @@ console.log("\n");
 })
 
 }
-givechoices =(creatorsid) =>{
+
+givechoices_creator =(creatorsid) =>{
 	if(creatorsid== null)
 	{
 
 	}
 	else {
-		prompt.run()
+		prompt_creator.run()
 
 			.then(answer=> {
 				if(answer[0] == '1'){
@@ -290,7 +274,7 @@ givechoices =(creatorsid) =>{
 }
 
 
-let prompt = new Radio({
+let prompt_creator = new Radio({
 	name: 'colors',
 	message: 'Want to know more about the Creator?',
 	choices: [
@@ -302,24 +286,163 @@ let prompt = new Radio({
 	]
 });
 
-let prompt_null = new Radio({
-	name: 'colors',
-	message: 'Don\'t know the name. No Problem try this?',
-	choices: [
-	'1.Fetch Random Creators from the API',
-	'2.Exit',
-	]
-});
+// To handling the Creators with same firstName
+givechoices_creator_list =(list) =>{
 
+let prompt_list = new Radio({
+		name: 'choices',
+		message: 'Select the Creator to know more about them? ',
+		choices: list
+	});
+		prompt_list.run().then(answer=> {
+
+				newcreator_id=answer.substring(answer.indexOf(":")+1)
+				getcreatorbycreatorid(newcreator_id)
+
+			});
+}
+
+
+getcreatorbycreatorid=(creatorsid)=>{
+
+	marvel.getcreatorbyid(creatorsid)
+		.then(result =>{
+			result.data.results.forEach(api_id=>{
+console.log("\n");
+	console.log(`Creator Id:${api_id.id}`)
+		console.log("-----------------------------------");
+		if(api_id.fullName == '')
+		{
+			console.log("Creator Name: No Information");
+		}
+		else {
+				console.log(`Creator Name: ${api_id.fullName}`)
+		}
+		console.log("-----------------------------------");
+	console.log(`Total comics of Creator:${api_id.comics.available}`);
+	console.log("-----------------------------------");
+	console.log(`Total Series of Creator: ${api_id.series.available}`)
+		console.log("-----------------------------------");
+		console.log(`Total stories: ${api_id.stories.available}`);
+		console.log("-----------------------------------");
+		if(api_id.events.available == '')
+		{
+			console.log("Total Events: No Information");
+		}
+		else {
+			console.log(`Total Events: ${api_id.events.available}`);
+		}
+console.log("\n");
+})
+return result.data.results[0].id
+
+}).then(creatorsid=>{
+
+givechoices_creator(creatorsid)
+});
+}
 
 givechoices_null =()=>{
+
+let prompt_null = new Radio({
+		name: 'choices',
+		message: 'Don\'t know the name. No Problem try this?',
+		choices: [
+		'1.Fetch Random Creators from the API',
+		'2.Exit',
+		]
+	});
 
 prompt_null.run()
 .then(answer=> {
 	if(answer[0] == '1'){
 		getRandom_creators()
+}
+});
+}
 
+getcreatorbycomics=(creatorsid)=>{
+
+	marvel.getcreatorbycomics(creatorsid)
+				.then(result=>{
+
+					if(result.data.results.length >0){
+					result.data.results.forEach(items=>{
+						console.log("********************************************************");
+						console.log(`Comic Id:${items.id}`)
+						console.log("********************************************************");
+						console.log(`Comic title: ${items.title}`)
+						console.log("********************************************************");
+						console.log(`Comic Page_Count:${items.pageCount}`);
+						console.log("********************************************************");
+				if(items.description != '' && items.description != null  ){
+					console.log(`Story:${items.description}`)
+				}
+				else{
+					console.log(`About the Comic: Sorry! No Description available`)
+					console.log("********************************************************");
+				}
+					console.log(`Comic Series: ${items.series.name}`);
+					console.log("********************************************************");
+					items.prices.forEach(item=>{
+						console.log(`Price of Comic:$${item.price}`);
+						console.log("********************************************************");
+					})
+					console.log(`Number of creators of Comics: ${items.creators.available}`);
+					console.log("********************************************************");
+					console.log(`Characters Appeared in comics: ${items.characters.available}`);
+					console.log("********************************************************");
+			});
 	}
+	else{
+		console.log("Sorry. No description for comics available")
+	}
+		}).then(()=>{
+
+			givechoices_comic_creator(creatorsid)
+		})
+}
+
+
+let prompt_comics = new Radio({
+	name: 'colors',
+	message: 'Want to know the name of Different Creators for this comics?',
+	choices: [
+	'1.Name of Different Creators and their roles',
+	'2.Exit',
+	]
 });
 
+//Choices for comics
+givechoices_comic_creator=(creatorsid)=>{
+	prompt_comics.run()
+
+		.then(answer=> {
+			if(answer[0] == '1'){
+	getcomics_creator_id(creatorsid)
+			}
+
+		});
+}
+
+// Getting the name of Different Creators
+getcomics_creator_id=(creatorsid)=>{
+	marvel.getcreatorbycomics(creatorsid)
+				.then(result=>{
+
+					if(result.data.results.length >0){
+					result.data.results.forEach(api_comic_creator=>{
+						let count=1
+						api_comic_creator.creators.items.forEach(item=>{
+
+								console.log(`${count}). Name of Creator of "${api_comic_creator.title}" comic: ${item.name}`);
+								console.log("-------------------------------------------------------------------");
+								console.log(`  Role: "${item.role}"`);
+								console.log("\n");
+								count+=1
+						})
+			});
+	}
+
+		})
 }

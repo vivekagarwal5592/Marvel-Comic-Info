@@ -109,28 +109,13 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
          .option('comics', {
             alias:'comic',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
-        default: false
+        default: false,
+        type:'boolean'
  })
-          .option('series', {
-            alias:'series',
-            describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
-        default: false
- })
-           .option('stories', {
-            alias:'story',
-            describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
-       default: false
- })
-    },
+},
     handler: (argv) => {
-      if(argv.story === true)
-      {
-        Creator.getcreator_stories(argv.id)
-      }
-      else {
         Creator.run(argv)
       }
-       }
 })
 .command({
     command: 'events',
