@@ -8,9 +8,9 @@ const
         marvels.getSeriesByIdCreators( seriesID )
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {                         
-                        console.log("Nothing returned.")                     
-                    } else {                     
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Creators for Series ID = ${seriesID} is available...`)
+                    } else {                    
                         resources.data.results.forEach( (items) => {
                             console.log(`Creators ID: ${items.id}`)
                             console.log(`Creators Name: ${items.fullName}`)
@@ -18,15 +18,16 @@ const
                         });
                     }
                 });
-                giveEventChoices(seriesID);
+                if ( seriesID == null )
+                    giveEventChoices(seriesID);
     }
 
     getSeriesByIdCharacters = (seriesID) => {
         marvels.getSeriesByIdCharacters( seriesID )
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {                         
-                        console.log("Nothing returned.")                     
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Characters for Series ID = ${seriesID} is available...`)
                     } else {                     
                         resources.data.results.forEach( (items) => {
                             console.log(`Character ID: ${items.id}`)
@@ -37,16 +38,17 @@ const
                         });
                     }
                 });
-                giveEventChoices(seriesID);
+                if ( seriesID == null )
+                    giveEventChoices(seriesID);
     }
 
     getSeriesByIdStories = (seriesID) => {
         marvels.getSeriesByIdStories( seriesID )
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {                         
-                        console.log("Nothing returned.")                     
-                    } else {                     
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Stories for Series ID = ${seriesID} is available...`)
+                    } else {                   
                         resources.data.results.forEach( (items) => {
                             console.log(`Stories ID: ${items.id}`)
                             console.log(`Stories Name: ${items.title}`)
@@ -56,15 +58,16 @@ const
                         });
                     }
                 });
-                giveEventChoices(seriesID);
+                if ( seriesID == null )
+                    giveEventChoices(seriesID);
     }
 
     getSeriesByIdComics = (seriesID) => {
         marvels.getSeriesByIdComics( seriesID )
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {                         
-                        console.log("Nothing returned.")                     
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Comics for Series ID = ${seriesID} is available...`)
                     } else {                     
                         resources.data.results.forEach( (items) => {
                             console.log(`Comics ID: ${items.id}`)
@@ -75,15 +78,16 @@ const
                         });
                     }
                 });
-                giveEventChoices(seriesID);
+                if ( seriesID == null )
+                    giveEventChoices(seriesID);
     }
 
     getSeriesByIdEvents = (seriesID) => {
         marvels.getSeriesByIdEvents( seriesID )
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {                         
-                        console.log("Nothing returned.")                     
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Events for Series ID = ${seriesID} is available...`)
                     } else {                     
                         resources.data.results.forEach( (items) => {
                             console.log(`Events ID: ${items.id}`)
@@ -94,7 +98,8 @@ const
                         });
                     }
                 });
-                giveEventChoices(seriesID);
+                if ( seriesID == null )
+                    giveEventChoices(seriesID);
     }
 
     giveSeriesChoices = ( seriesID ) => {
@@ -127,8 +132,8 @@ module.exports.run = options => {
         marvels.series()
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {
-                        console.log("Nothing returned.")
+                    if ( resources.code == 404 ) {
+                        console.log("Sorry, no Series available...")
                     } else {
                         resources.data.results.forEach( (items) => {
                             console.log(`Series ID: ${items.id}`);
@@ -143,15 +148,14 @@ module.exports.run = options => {
                             console.log()
                         });
                     }
-                });
-                
+                });  
     } else if ( options.name != null ) {
         marvels.getSeriesByName( options.name.replace(/ /g, "%20") )
                 .then( (resources) => {
                     console.log()
-                    if ( resources.data.results.length == 0 ) {                         
-                        console.log("Nothing returned.")                     
-                    } else {                     
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Series with Name=${options.name} is available...`)
+                    } else {                    
                         resources.data.results.forEach( (items) => {
                             console.log(`Series ID: ${items.id}`);
                             console.log(`Series Name: ${items.title}`)
@@ -164,19 +168,20 @@ module.exports.run = options => {
                             console.log(`Appeared in Events: ${items.events.available}`)
                             console.log()
                         });
+                        return resources.data.results[0].id;
                     }
-                    return resources.data.results[0].id;
                 })
                 .then( (seriesID) => {
-                    giveEventChoices( seriesID);
+                    if ( seriesID != null )
+                        giveEventChoices( seriesID);
                 })
     } else if ( options.id != null ) {
         if ( !options.creators && !options.characters && !options.stories && !options.comics && !options.events) {
             marvels.getSeriesById(options.id)
                     .then( (resources) => {
                         console.log()
-                        if ( resources.data.results.length == 0 ) {                         
-                            console.log("Nothing returned.")                     
+                        if ( resources.code == 404 ) {
+                            console.log(`Sorry, no Series with ID=${options.id} is available...`)
                         } else {                     
                             resources.data.results.forEach( (items) => {
                                 console.log(`Series ID: ${items.id}`);
@@ -190,11 +195,12 @@ module.exports.run = options => {
                                 console.log(`Appeared in Events: ${items.events.available}`)
                                 console.log()
                             });
+                            return resources.data.results[0].id;
                         }
-                        return resources.data.results[0].id;
                     })
                     .then( (seriesID) => {
-                        giveEventChoices( seriesID );
+                        if ( seriesID != null )
+                            giveEventChoices( seriesID );
                     })
         }
         if ( options.creators == true ) {
