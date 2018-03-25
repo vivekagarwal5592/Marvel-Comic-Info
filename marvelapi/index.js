@@ -22,6 +22,7 @@ const _fetchbyname = (command,specialname) => {
 
 const _fetchbyfirstname = (command,specialname) => {
     return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&firstName=${specialname}`)
+}
 
 const _fetchbytitle = (command,specialname) => {
     return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&title=${specialname}`)
@@ -137,22 +138,6 @@ exports.getcreatorbystories=(id)=>{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=84e3724042b71f9fe7a8456a11068da3&hash=7581c5870f9020b12ea7ec3c3c454c69
