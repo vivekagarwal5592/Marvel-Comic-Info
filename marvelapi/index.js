@@ -19,15 +19,32 @@ const _fetchbyname = (command,specialname) => {
         .catch(error => error.response.body)
 }
 
+
+const _fetchbyfirstname = (command,specialname) => {
+    return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&firstName=${specialname}`)
+    .then(response => response.body)
+    .catch(error => error.response.body)
+}
+
 const _fetchbytitle = (command,specialname) => {
     return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&title=${specialname}`)
+
         .then(response => response.body)
         .catch(error => error.response.body)
 }
 
+const _fetchbyparameter = (command,parameter,id) =>{
+
+  return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&${parameter}=${id}`)
+
+      .then(response => response.body)
+      .catch(error => error.response.body)
+
+}
+
 //Fetches lists of comic characters with optional filters. See notes on individual parameters below.
 exports.characters = () => {
-        return _fetch('v1/public/characters')  
+        return _fetch('v1/public/characters')
 }
 
 exports.getcharacterbyname = (charcatername) => {
@@ -58,7 +75,7 @@ exports.getcharacterbystories = (id) => {
 
 
 exports.comics = () => {
-        return _fetch('v1/public/comics') 
+        return _fetch('v1/public/comics')
 }
 
 exports.getcomicbytitle = (title) => {
@@ -88,28 +105,98 @@ exports.getcomicsbyevent = (id) => {
 }
 
 
+// All the functions of Comics Creators
+
+//This will fetch all the name of the creator and number of comics ,series,stories and events that creators have.
+exports.getcreator=()=>
+{
+  return _fetch('v1/public/creators')
+}
+
+// To fetch the particular creator by id
+exports.getcreatorbyid =(id) => {
+    return _fetch(`v1/public/creators/${id}`)
+}
+
+// Addtional method to fetch the particular creator by name
+exports.getcreatorbyname =(creatorname) =>{
+  return _fetchbyfirstname('v1/public/creators',creatorname)
+}
+
+// Fetches lists of comics in which the work of a specific creator appears
+
+exports.getcreatorbycomics =(id)=>{
+
+  return _fetch(`v1/public/creators/${id}/comics`)
+  }
+
+// Fetches lists of events featuring the work of a specific creator
+  exports.getcreatorbyevents =(id)=>{
+
+    return _fetch(`v1/public/creators/${id}/events`)
+  }
+
+  //Fetches lists of comic series in which a specific creator's work appears
+exports.getcreatorbyseries=(id)=>{
+return _fetch(`v1/public/creators/${id}/series`)
+}
+
+//Fetches lists of comic stories by a specific creator
+exports.getcreatorbystories=(id)=>{
+
+    return _fetch(`v1/public/creators/${id}/stories`)
 
 
 
+}
 
+// Function Module that will fetch Marvel Stories
 
+//Get all the stories with story id,story desc.
+exports.stories=()=>
+{
+  return _fetch('v1/public/stories')
+}
 
+//Get the particular Story by id
+exports.getStoriesById =(id) => {
+    return _fetch(`v1/public/stories/${id}`)
+}
 
+// Get List of Characters by Stories
+exports.getCharacterByStory =(id) =>{
+  return _fetch(`v1/public/${id}/character`)
+}
 
+// Get list of Comics by Story
 
+exports.getComicsByStory =(id)=>{
 
+  return _fetch(`v1/public/stories/${id}/comics`)
+  }
 
+// Get list of Events by Story
+  exports.getEventsByStory =(id)=>{
 
+    return _fetch(`v1/public/stories/${id}/events`)
+  }
 
+  //Get list of Series by Story
+exports.getSeriesByStory=(id)=>{
+return _fetch(`v1/public/stores/${id}/series`)
+}
 
+//Get list of creators by story
+exports.getCreatorsByStory=(id)=>{
 
+    return _fetch(`v1/public/stories/${id}/creators`)
 
+}
+// Get list of stories by type(eg: characterid,comicid,seriesid)
+exports.getStoriesByType =(id,type)=>{
 
-
-
-
-
-
+      return _fetchbyparameter(`v1/public/stories`,type,id)
+}
 
 
 //https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=84e3724042b71f9fe7a8456a11068da3&hash=7581c5870f9020b12ea7ec3c3c454c69
