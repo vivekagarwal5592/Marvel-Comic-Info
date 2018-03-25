@@ -1,10 +1,6 @@
 const
     // Custom module to query external api: marvel.com
-    marvels = require('marvels'),
-    // Required to prompt/question user on cli elegantly.
-    inquirer = require('inquirer'),
-    // Required to add colors to output displayed on console, used for text color, background, and bold.
-    chalk = require('chalk'),
+    marvels = require('marvelapi'),
     // Required to display radio options.
     Radio = require('prompt-radio');
 
