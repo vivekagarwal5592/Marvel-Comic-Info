@@ -167,31 +167,6 @@ marvel.getcreatorbyid(creatorsid)
 	givechoices(creatorsid)
 }
 
-
-
-module.exports.getcreator_stories = (creatorsid)=>{
-marvel.getcreatorbystories(creatorsid)
-	.then(result=>{
-
-
-		result.data.results.forEach(items=>{
-
-			console.log(`Story Id:${items.id}`)
-			console.log(`Story Type: ${items.type}`);
-			console.log(`Story title: ${items.title}`)
-			if(items.description != '' && items.description != null  ){
-				console.log(`Story:${items.description}`)
-			}
-			else{
-				console.log(`About the Series Sorry! No Description available`)
-			}
-		});
-	})
-
-	givechoices(creatorsid)
-}
-
-
 getcreator_series_id = (creatorsid)=>{
 	marvel.getcreatorbyid(creatorsid)
 		.then(result=>{
