@@ -21,8 +21,6 @@ const _fetchbyname = (command,specialname) => {
 
 
 const _fetchbyfirstname = (command,specialname) => {
-    console.log("fetch ny first name is "+specialname)
-    console.log(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&firstName=${specialname}`)
     return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&firstName=${specialname}`)
     .then(response => response.body)
     .catch(error => error.response.body)
@@ -113,7 +111,6 @@ exports.getcreatorbyid =(id) => {
 
 // Addtional method to fetch the particular creator by name
 exports.getcreatorbyname =(creatorname) =>{
-    console.log("creator name"+creatorname)
   return _fetchbyfirstname('v1/public/creators',creatorname)
 }
 

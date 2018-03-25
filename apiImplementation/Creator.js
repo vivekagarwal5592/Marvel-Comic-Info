@@ -47,13 +47,6 @@ else if(options.name !=null)
 
 marvel.getcreatorbyname(options.name)
 		.then(result =>{
-			// console.log("-----------------------------------");
-			//a = JSON.stringify(result)
-
-			console.log("result is" + result.data)
- //console.log("-----------------------------------");
-		//	console.log(result.code)
-//console.log("hhhhhhhhhhhhhhhhhhhhhhhh")
 			if(result.data.results == '')
 			{
 						console.log(` OOPS, Sorry No information available for ${options.name} in the API`);
