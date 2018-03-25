@@ -33,6 +33,15 @@ const _fetchbytitle = (command,specialname) => {
         .catch(error => error.response.body)
 }
 
+const _fetchbyparameter = (command,parameter,id) =>{
+
+  return superagent.get(`${config.url}/${command}?ts=${ts}&apikey=${apikey}&hash=${hash}&${parameter}=${id}`)
+
+      .then(response => response.body)
+      .catch(error => error.response.body)
+
+}
+
 //Fetches lists of comic characters with optional filters. See notes on individual parameters below.
 exports.characters = () => {
         return _fetch('v1/public/characters')
@@ -139,6 +148,54 @@ exports.getcreatorbystories=(id)=>{
 
 
 
+}
+
+// Function Module that will fetch Marvel Stories
+
+//Get all the stories with story id,story desc.
+exports.stories=()=>
+{
+  return _fetch('v1/public/stories')
+}
+
+//Get the particular Story by id
+exports.getStoriesById =(id) => {
+    return _fetch(`v1/public/stories/${id}`)
+}
+
+// Get List of Characters by Stories
+exports.getCharacterByStory =(id) =>{
+  return _fetch(`v1/public/${id}/character`)
+}
+
+// Get list of Comics by Story
+
+exports.getComicsByStory =(id)=>{
+
+  return _fetch(`v1/public/stories/${id}/comics`)
+  }
+
+// Get list of Events by Story
+  exports.getEventsByStory =(id)=>{
+
+    return _fetch(`v1/public/stories/${id}/events`)
+  }
+
+  //Get list of Series by Story
+exports.getSeriesByStory=(id)=>{
+return _fetch(`v1/public/stores/${id}/series`)
+}
+
+//Get list of creators by story
+exports.getCreatorsByStory=(id)=>{
+
+    return _fetch(`v1/public/stories/${id}/creators`)
+
+}
+// Get list of stories by type(eg: characterid,comicid,seriesid)
+exports.getStoriesByType =(id,type)=>{
+
+      return _fetchbyparameter(`v1/public/stories`,type,id)
 }
 
 

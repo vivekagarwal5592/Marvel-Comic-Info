@@ -11,7 +11,6 @@ module.exports.run = options => {
 if(options.id ==null && options.name==null){
 		marvel.characters()
 		.then(result =>{ //console.log(result)
-console.log("I am in charcaters")
 
 			result.data.results.forEach(items=>{
 
@@ -69,7 +68,11 @@ else{
 }).then(charcaterbyid=>{
 
 if(charcaterbyid !=null){
+<<<<<<< HEAD
 givechoices(charcaterbyid)
+=======
+givecharcaterchoices(charcaterbyid) 
+>>>>>>> master
 }
 
 
@@ -133,7 +136,7 @@ else{
 }).then(charcaterbyid=>{
 	if(charcaterbyid !=null){
 
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	}
 
 });
@@ -170,7 +173,7 @@ marvel.getcharacterbystories(charcaterbyid)
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 
 
@@ -201,7 +204,7 @@ getcharacterbyseries = (charcaterbyid)=>{
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 
 
@@ -231,7 +234,7 @@ getcharacterbyevents = (charcaterbyid)=>{
 		});
 }
 	}).then(()=>{
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 
 
@@ -267,14 +270,13 @@ else{
 }
 	}).then(()=>{
 
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 }
 
 
 
-givechoices =(charcaterbyid) =>{
-
+givecharcaterchoices =(charcaterbyid) =>{
 prompt.run()
 
 	.then(answer=> {
