@@ -78,7 +78,7 @@ return result.data.results[0].id
 }
 
 else if(options.id !=null ){
-	console.log(options)
+	
 //marvel.getcharacterbyid(options.id)
 if(options.characters == true){
 	getcharacters(options.ids)
@@ -93,8 +93,7 @@ if(options.series == true){
 if(options.stories == true){
 	getstories(options.id)
 }
-
-
+}
 }
 
 getcreators = (comicid)=>{
@@ -110,10 +109,12 @@ getcreators = (comicid)=>{
 
 			console.log()
 		});
+	}).then(()=>{
+givechoices(comicid)
 	})
 
 
-	givechoices(comicid)
+	
 	console.log()
 }
 
@@ -139,10 +140,11 @@ getstories= (comicid)=>{
 
 			console.log()
 		});
+	}).then(()=>{
+givechoices(comicid)
 	})
 
 
-	givechoices(comicid)
 	console.log()
 }
 
@@ -173,10 +175,11 @@ getevents = (comicid)=>{
 				console.log()
 			});
 		}
+	}).then(()=>{
+givechoices(comicid)
 	})
 
 
-	givechoices(comicid)
 	console.log()
 }
 
@@ -209,8 +212,10 @@ getcharacters = (comicid)=>{
 			});
 		}
 
-	});
-	givechoices(comicid)
+	}).then(()=>{
+givechoices(comicid)
+	})
+	
 	console.log()
 
 }
@@ -271,4 +276,3 @@ const questions = [
 }
 ];
 
-}
