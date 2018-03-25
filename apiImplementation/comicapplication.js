@@ -59,6 +59,9 @@ getcomicsbyid(val)
 getcomicsbyid =(val)=>{
 	marvel.getcomicsbyid(val).then(result=>{
 
+if(result.code == 200){
+
+
 result.data.results.forEach(items=>{
 	
 
@@ -76,6 +79,10 @@ result.data.results.forEach(items=>{
 	});
 
 });
+}
+else{
+	console.log("Sorry! No data for the given comic id")
+}
 
 })
 
