@@ -70,9 +70,10 @@ return list_name
 
 else if(options.id !=null )
 {
+
 if(options.comic == true)
 {
-getcreatorbycomics(options.id)
+getall_comics(options.id)
 }
 
 else {
@@ -361,12 +362,51 @@ prompt_null.run()
 });
 }
 
-getcreatorbycomics=(creatorsid)=>{
 
+getall_comics=(creatorsid)=>{
+list_comic=[]
 	marvel.getcreatorbycomics(creatorsid)
-				.then(result=>{
+	.then(result=>{
+		if(result.data.results == '')
+					{
+								console.log(` OOPS, Sorry No information available for ${options.name} in the API`);
+								givechoices_null()
+					}
+					else {
+						result.data.results.forEach(items=>{
+							value=items.title + '_' + items.id
+							list_comic.push(value)
+						})
+						return list_comic
+					}
+}).then(list=>{
+		if(list!=null)
+		{
+			givechoices_comics(list)
+		}
+})
+}
 
-					if(result.data.results.length >0){
+
+givechoices_comics =(list) =>{
+
+let prompt_comic_list = new Radio({
+		name: 'choices',
+		message: 'Select the Comics to know more about them? ',
+		choices: list
+	});
+		prompt_comic_list.run().then(answer=> {
+
+				newcomic_id= answer.substring(answer.indexOf('_')+1)
+				getcomics_comic_id(newcomic_id)
+
+			});
+}
+
+
+getcomics_comic_id=(comicid)=>{
+	marvel.getcomicsbyid (comicid)
+				.then(result=>{
 					result.data.results.forEach(items=>{
 						console.log("********************************************************");
 						console.log(`Comic Id:${items.id}`)
@@ -393,13 +433,9 @@ getcreatorbycomics=(creatorsid)=>{
 					console.log(`Characters Appeared in comics: ${items.characters.available}`);
 					console.log("********************************************************");
 			});
-	}
-	else{
-		console.log("Sorry. No description for comics available")
-	}
 		}).then(()=>{
 
-			givechoices_comic_creator(creatorsid)
+			givechoices_comic_creator(comicid)
 		})
 }
 
@@ -414,20 +450,20 @@ let prompt_comics = new Radio({
 });
 
 //Choices for comics
-givechoices_comic_creator=(creatorsid)=>{
+givechoices_comic_creator=(comicid)=>{
 	prompt_comics.run()
 
 		.then(answer=> {
 			if(answer[0] == '1'){
-	getcomics_creator_id(creatorsid)
+	getcomics_creator_comic_id(comicid)
 			}
 
 		});
 }
 
 // Getting the name of Different Creators
-getcomics_creator_id=(creatorsid)=>{
-	marvel.getcreatorbycomics(creatorsid)
+getcomics_creator_comic_id=(comicid)=>{
+	marvel.getcomicsbyid(comicid)
 				.then(result=>{
 
 					if(result.data.results.length >0){
