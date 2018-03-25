@@ -68,11 +68,15 @@ else{
 }).then(charcaterbyid=>{
 
 if(charcaterbyid !=null){
+<<<<<<< HEAD
+givechoices(charcaterbyid)
+=======
 givecharcaterchoices(charcaterbyid) 
+>>>>>>> master
 }
 
 
-	
+
 
 });
 }
@@ -172,7 +176,7 @@ marvel.getcharacterbystories(charcaterbyid)
 givecharcaterchoices(charcaterbyid)
 	})
 
-	
+
 }
 
 
@@ -203,7 +207,7 @@ getcharacterbyseries = (charcaterbyid)=>{
 givecharcaterchoices(charcaterbyid)
 	})
 
-	
+
 }
 
 
@@ -233,7 +237,7 @@ getcharacterbyevents = (charcaterbyid)=>{
 givecharcaterchoices(charcaterbyid)
 	})
 
-	
+
 }
 
 getcharacterbycomics = (charcaterbyid)=>{
@@ -297,7 +301,7 @@ var prompt = new Radio({
 	name: 'colors',
 	message: 'Want to know more about the character?',
 	choices: [
-	'1.Appeared in Comics',
+	'1.Appeared in Comic',
 	'2.Appeared in Series',
 	'3.Appeared in Stories',
 	'4.Appeared in Events',
