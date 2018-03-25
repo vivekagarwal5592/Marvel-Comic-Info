@@ -94,8 +94,14 @@ else if(options.id !=null )
 //  console.log(option.id);
 
   marvel.getcreatorbyid(options.id)
-  		.then(result =>{ //console.log(result)
-        //console.log(options.name)
+  		.then(result =>{
+
+				if(result.code==404)
+				{
+					console.log(` OOPS, Sorry No information available for ${options.id} in the API`);
+						givechoices_null()
+				}
+				else {
         result.data.results.forEach(api_id=>{
 console.log("\n");
   	console.log(`Creator Id:${api_id.id}`)
@@ -124,6 +130,7 @@ console.log("\n");
 console.log("\n");
 })
 	return result.data.results[0].id
+}
 }).then(creatorsid=>{
 
 	givechoices(creatorsid)
