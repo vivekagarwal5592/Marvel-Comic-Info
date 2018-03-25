@@ -1,7 +1,7 @@
 const
 comicapplication = require('./comicapplication'),
 characterapplication = require('./characterapplication'),
-Creator=require('./Creator')
+//Creator=require('./Creator')
 yargs = require('yargs')
 
 const flags = yargs.usage('$0: Usage <cmd> [options]')
@@ -64,30 +64,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
             describe: 'This method fetches a single comic resource.',
             default: null
         })
-        .option('characters', {
-            alias:'char',
-            describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
-             type:'boolean',
-        default: false
- })
-         .option('creators', {
-            alias:'creator',
-            describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
-             type:'boolean',
-        default: false
- })
-          .option('events', {
-            alias:'e',
-            describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
-             type:'boolean',
-        default: false
- })
-           .option('stories', {
-            alias:'s',
-            describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
-             type:'boolean',
-       default: false
- })
+      
     },
     handler: (argv) => { comicapplication.run(argv) }
 })

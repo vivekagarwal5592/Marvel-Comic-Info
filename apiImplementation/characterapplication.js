@@ -4,7 +4,7 @@ var Radio = require('prompt-radio');
 
 module.exports.run = options => {
 
-	//console.log(options)
+	console.log(options)
 
 
 
@@ -69,7 +69,7 @@ else{
 }).then(charcaterbyid=>{
 
 if(charcaterbyid !=null){
-givechoices(charcaterbyid) 
+givecharcaterchoices(charcaterbyid) 
 }
 
 
@@ -133,7 +133,7 @@ else{
 }).then(charcaterbyid=>{
 	if(charcaterbyid !=null){
 
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	}
 
 });
@@ -170,7 +170,7 @@ marvel.getcharacterbystories(charcaterbyid)
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 
 	
@@ -201,7 +201,7 @@ getcharacterbyseries = (charcaterbyid)=>{
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 
 	
@@ -231,7 +231,7 @@ getcharacterbyevents = (charcaterbyid)=>{
 		});
 }
 	}).then(()=>{
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 
 	
@@ -267,14 +267,14 @@ else{
 }
 	}).then(()=>{
 
-givechoices(charcaterbyid)
+givecharcaterchoices(charcaterbyid)
 	})
 }
 
 
 
-givechoices =(charcaterbyid) =>{
-
+givecharcaterchoices =(charcaterbyid) =>{
+console.log("in give choices")
 prompt.run()
 
 	.then(answer=> {
