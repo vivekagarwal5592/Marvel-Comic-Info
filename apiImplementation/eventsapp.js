@@ -8,73 +8,98 @@ const
         marvels.getEventByIdCreators( eventID )
             .then( (resources) => {
                 console.log()
-                resources.data.results.forEach( (items) => {
-                        console.log(`Creators ID: ${items.id}`)
-                        console.log(`Creators Name: ${items.fullName}`)
-                        console.log()
-                    });
+                if ( resources.code == 404 ) {
+                    console.log(`Sorry, no Creators for Event ID = ${eventID} available...`)
+                } else {
+                    resources.data.results.forEach( (items) => {
+                            console.log(`Creators ID: ${items.id}`)
+                            console.log(`Creators Name: ${items.fullName}`)
+                            console.log()
+                        });
+                    }
                 });
-                giveEventChoices(eventID);
+                if ( eventID == null )
+                    giveEventChoices(eventID);
     }
 
     getEventByIdCharacters = (eventID) => {
         marvels.getEventByIdCharacters( eventID )
                 .then( (resources) => {
                     console.log()
-                    resources.data.results.forEach( (items) => {
-                        console.log(`Character ID: ${items.id}`)
-                        console.log(`Character Name: ${items.name}`)
-                        const description = (items.description != '') ? `Character Description: ${items.description}` : `Character Description: Sorry! No Description available`;
-                        console.log(description)
-                        console.log()
-                    });
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Characters for Event ID = ${eventID} available...`)
+                    } else {
+                        resources.data.results.forEach( (items) => {
+                            console.log(`Character ID: ${items.id}`)
+                            console.log(`Character Name: ${items.name}`)
+                            const description = (items.description != '') ? `Character Description: ${items.description}` : `Character Description: Sorry! No Description available`;
+                            console.log(description)
+                            console.log()
+                        });
+                    }
                 });
-                giveEventChoices(eventID);
+                if ( eventID == null )
+                    giveEventChoices(eventID);
     }
 
     getEventByIdStories = (eventID) => {
         marvels.getEventByIdStories( eventID )
                 .then( (resources) => {
                     console.log()
-                    resources.data.results.forEach( (items) => {
-                        console.log(`Stories ID: ${items.id}`)
-                        console.log(`Stories Name: ${items.title}`)
-                        const description = (items.description != '') ? `Stories Description: ${items.description}` : `Stories Description: Sorry! No Description available`;
-                        console.log(description)
-                        console.log()
-                    });
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Stories for Event ID = ${eventID} available...`)
+                    } else {
+                        resources.data.results.forEach( (items) => {
+                            console.log(`Stories ID: ${items.id}`)
+                            console.log(`Stories Name: ${items.title}`)
+                            const description = (items.description != '') ? `Stories Description: ${items.description}` : `Stories Description: Sorry! No Description available`;
+                            console.log(description)
+                            console.log()
+                        });
+                    }
                 });
-                giveEventChoices(eventID);
+                if ( eventID == null )
+                    giveEventChoices(eventID);
     }
 
     getEventByIdComics = (eventID) => {
         marvels.getEventByIdComics( eventID )
                 .then( (resources) => {
                     console.log()
-                    resources.data.results.forEach( (items) => {
-                        console.log(`Comics ID: ${items.id}`)
-                        console.log(`Comics Name: ${items.title}`)
-                        const description = (items.description != '') ? `Comics Description: ${items.description}` : `Comics Description: Sorry! No Description available`;
-                        console.log(description)
-                        console.log()
-                    });
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Comics for Event ID = ${eventID} available...`)
+                    } else {
+                        resources.data.results.forEach( (items) => {
+                            console.log(`Comics ID: ${items.id}`)
+                            console.log(`Comics Name: ${items.title}`)
+                            const description = (items.description != '') ? `Comics Description: ${items.description}` : `Comics Description: Sorry! No Description available`;
+                            console.log(description)
+                            console.log()
+                        });
+                    }
                 });
-                giveEventChoices(eventID);
+                if ( eventID == null )
+                    giveEventChoices(eventID);
     }
 
     getEventByIdSeries = (eventID) => {
         marvels.getEventByIdSeries( eventID )
                 .then( (resources) => {
                     console.log()
-                    resources.data.results.forEach( (items) => {
-                        console.log(`Series ID: ${items.id}`)
-                        console.log(`Series Name: ${items.title}`)
-                        const description = (items.description != '') ? `Series Description: ${items.description}` : `Series Description: Sorry! No Description available`;
-                        console.log(description)
-                        console.log()
-                    });
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no Series for Event ID = ${eventID} available...`)
+                    } else {
+                        resources.data.results.forEach( (items) => {
+                            console.log(`Series ID: ${items.id}`)
+                            console.log(`Series Name: ${items.title}`)
+                            const description = (items.description != '') ? `Series Description: ${items.description}` : `Series Description: Sorry! No Description available`;
+                            console.log(description)
+                            console.log()
+                        });
+                    }
                 });
-                giveEventChoices(eventID);
+                if ( eventID == null )
+                    giveEventChoices(eventID);
     }
 
     giveEventChoices = ( eventID ) => {
@@ -106,46 +131,31 @@ module.exports.run = options => {
         marvels.events()
                 .then( (resources) => {
                     console.log()
-                    resources.data.results.forEach( (items) => {
-                        console.log(`Event ID: ${items.id}`);
-                        console.log(`Event Name: ${items.title}`)
-                        const description = (items.description != '') ? `About the Event: ${items.description}` : `About the Event: Sorry! No Description available`;
-                        console.log(description);
-                        console.log(`Appeared in Creators: ${items.creators.available}`);
-                        console.log(`Appeared in Characters: ${items.characters.available}`);
-                        console.log(`Appeared in Stories: ${items.stories.available}`)
-                        console.log(`Appeared in Comics: ${items.comics.available}`)
-                        console.log(`Appeared in Series: ${items.series.available}`)
-                        console.log()
-                    });
-                });
+                    if ( resources.code == 404 ) {
+                        console.log("Sorry, no events available...")
+                    } else {
+                        resources.data.results.forEach( (items) => {
+                            console.log(`Event ID: ${items.id}`);
+                            console.log(`Event Name: ${items.title}`)
+                            const description = (items.description != '') ? `About the Event: ${items.description}` : `About the Event: Sorry! No Description available`;
+                            console.log(description);
+                            console.log(`Appeared in Creators: ${items.creators.available}`);
+                            console.log(`Appeared in Characters: ${items.characters.available}`);
+                            console.log(`Appeared in Stories: ${items.stories.available}`)
+                            console.log(`Appeared in Comics: ${items.comics.available}`)
+                            console.log(`Appeared in Series: ${items.series.available}`)
+                            console.log()
+                        });
+                    }
+                }).catch((error) => {console.log(error)});
                 
     } else if ( options.name != null ) {
         marvels.getEventsByName( options.name.replace(/ /g, "%20") )
                 .then( (resources) => {
                     console.log()
-                    resources.data.results.forEach( (items) => {
-                        console.log(`Event ID: ${items.id}`);
-                        console.log(`Event Name: ${items.title}`)
-                        const description = (items.description != '') ? `About the Event: ${items.description}` : `About the Event: Sorry! No Description available`;
-                        console.log(description);
-                        console.log(`Appeared in Creators: ${items.creators.available}`);
-                        console.log(`Appeared in Characters: ${items.characters.available}`);
-                        console.log(`Appeared in Stories: ${items.stories.available}`)
-                        console.log(`Appeared in Comics: ${items.comics.available}`)
-                        console.log(`Appeared in Series: ${items.series.available}`)
-                        console.log()
-                    });
-                    return resources.data.results[0].id;
-                })
-                .then( (eventID) => {
-                    giveEventChoices( eventID);
-                })
-    } else if ( options.id != null ) {
-        if ( !options.creators && !options.characters && !options.stories && !options.comics && !options.series) {
-            marvels.getEventById(options.id)
-                    .then( (resources) => {
-                        console.log()
+                    if ( resources.code == 404 ) {
+                        console.log(`Sorry, no events named: ${options.name} available...`)
+                    } else {
                         resources.data.results.forEach( (items) => {
                             console.log(`Event ID: ${items.id}`);
                             console.log(`Event Name: ${items.title}`)
@@ -159,9 +169,38 @@ module.exports.run = options => {
                             console.log()
                         });
                         return resources.data.results[0].id;
+                    }
+                })
+                .then( (eventID) => {
+                    if ( eventID != null )
+                        giveEventChoices( eventID);
+                })
+    } else if ( options.id != null ) {
+        if ( !options.creators && !options.characters && !options.stories && !options.comics && !options.series) {
+            marvels.getEventById(options.id)
+                    .then( (resources) => {
+                        console.log()
+                        if ( resources.code == 404 ) {
+                            console.log(`Sorry, no event with ID=${options.id} is available...`)
+                        } else {
+                            resources.data.results.forEach( (items) => {
+                                console.log(`Event ID: ${items.id}`);
+                                console.log(`Event Name: ${items.title}`)
+                                const description = (items.description != '') ? `About the Event: ${items.description}` : `About the Event: Sorry! No Description available`;
+                                console.log(description);
+                                console.log(`Appeared in Creators: ${items.creators.available}`);
+                                console.log(`Appeared in Characters: ${items.characters.available}`);
+                                console.log(`Appeared in Stories: ${items.stories.available}`)
+                                console.log(`Appeared in Comics: ${items.comics.available}`)
+                                console.log(`Appeared in Series: ${items.series.available}`)
+                                console.log()
+                            });
+                            return resources.data.results[0].id;
+                        }
                     })
                     .then( (eventID) => {
-                        giveEventChoices( eventID );
+                        if ( eventID != null )
+                            giveEventChoices( eventID );
                     })
         }
         if ( options.creators == true ) {
