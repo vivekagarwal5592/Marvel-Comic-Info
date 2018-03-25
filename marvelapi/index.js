@@ -139,6 +139,51 @@ exports.getcreatorbystories=(id)=>{
 
 }
 
+// Function Module that will fetch Marvel Stories
+
+//This will fetch all the name of the creator and number of comics ,series,stories and events that creators have.
+exports.stories=()=>
+{
+  return _fetch('v1/public/stories')
+}
+
+//Get the particular Story by id
+exports.getStoriesById =(id) => {
+    return _fetch(`v1/public/stories/${id}`)
+}
+
+// Get List of Characters by Stories
+exports.getCharacterByStory =(id) =>{
+  return _fetch(`v1/public/${id}/character`)
+}
+
+// Fetches lists of comics in which the work of a specific creator appears
+
+exports.getComicsByStory =(id)=>{
+
+  return _fetch(`v1/public/stories/${id}/comics`)
+  }
+
+// Fetches lists of events featuring the work of a specific creator
+  exports.getEventsByStory =(id)=>{
+
+    return _fetch(`v1/public/stories/${id}/events`)
+  }
+
+  //Fetches lists of comic series in which a specific creator's work appears
+exports.getSeriesByStory=(id)=>{
+return _fetch(`v1/public/stores/${id}/series`)
+}
+
+//Fetches lists of comic stories by a specific creator
+exports.getCreatorsByStory=(id)=>{
+
+    return _fetch(`v1/public/stories/${id}/creators`)
+
+
+
+}
+
 
 //https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=84e3724042b71f9fe7a8456a11068da3&hash=7581c5870f9020b12ea7ec3c3c454c69
 //public key :84e3724042b71f9fe7a8456a11068da3

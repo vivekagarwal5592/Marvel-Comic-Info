@@ -11,7 +11,7 @@ const start = (commandArgv)=>{
         .then(result=>{
 
             result.data.results.forEach(res=>{
-              console.log(`Story Id:${res.id}`)
+              console.log(`Story Id : ${res.id}`)
               console.log(`Story Title: ${res.title}`)
               if(res.description != '' && res.description != null){
                 console.log(`Story Description:${items.description}`)
@@ -20,15 +20,16 @@ const start = (commandArgv)=>{
                 console.log(`Story Description:Sorry,No Description is avaible for this story`)
               }
               console.log(`Story Type:${res.type}`)
-
-              console.log(`Total Number of Comics in which Story takes Place:${res.comics.available}`)
-              console.log(`Total number of Series in which Story takes place:${res.series.available}`)
-              console.log(`Total number of Events in which Story takes place:${res.events.available}`)
-              console.log(`Total number of Characters which appear in this story:${res.characters.available}`)
-              console.log(`Total number of Creators who worked for this story:${res.creators.available}`)
+              console.log("Stories appering in :")
+              console.log(`  ->Comics  :${res.comics.available} times`)
+              console.log(`  ->Series  :${res.series.available} times`)
+              console.log(`  ->Events  :${res.events.available} times ` )
+              console.log()
+              console.log(`Number of Characters appear in this story   :${res.characters.available}`)
+              console.log(`Number of Creators who worked for this story:${res.creators.available}`)
               console.log(`Originally published in :${res.originalIssue.name}`)
 
-              console.log("\n\n")
+              console.log("-----------------------------------------------------------------------------------\n\n")
             })
 
         })
@@ -61,11 +62,10 @@ const start = (commandArgv)=>{
 getStoriesById=(storyId)=>{
 
 
-    marvel.getstoriesbyid(storyId)
+    marvel.getStoriesById(storyId)
     .then(result=>{
-
       result.data.results.forEach(res=>{
-        console.log(`Story Id:${res.id}`)
+        console.log(`Story Id : ${res.id}`)
         console.log(`Story Title: ${res.title}`)
         if(res.description != '' && res.description != null){
           console.log(`Story Description:${items.description}`)
@@ -74,16 +74,17 @@ getStoriesById=(storyId)=>{
           console.log(`Story Description:Sorry,No Description is avaible for this story`)
         }
         console.log(`Story Type:${res.type}`)
-
-        console.log(`Total Number of Comics in which Story takes Place:${res.comics.available}`)
-        console.log(`Total number of Series in which Story takes place:${res.series.available}`)
-        console.log(`Total number of Events in which Story takes place:${res.events.available}`)
-        console.log(`Total number of Characters which appear in this story:${res.characters.available}`)
-        console.log(`Total number of Creators who worked for this story:${res.creators.available}`)
+        console.log("Stories appering in :")
+        console.log(`  ->Comics  :${res.comics.available} times`)
+        console.log(`  ->Series  :${res.series.available} times`)
+        console.log(`  ->Events  :${res.events.available} times ` )
+        console.log()
+        console.log(`Number of Characters appear in this story   :${res.characters.available}`)
+        console.log(`Number of Creators who worked for this story:${res.creators.available}`)
         console.log(`Originally published in :${res.originalIssue.name}`)
 
-        console.log("\n\n")
-  		})
+        console.log("-----------------------------------------------------------------------------------\n\n")
+      })
 
   	})
 
@@ -91,7 +92,7 @@ getStoriesById=(storyId)=>{
 
 getCharacters =(storyId) =>{
 
-    marvel.getstoriesbycharacter(storyId)
+    marvel.getCharacterByStory(storyId)
     .then(result=>{
         console.log(result)
           if(result.data.results.length==0){
@@ -125,7 +126,7 @@ getCharacters =(storyId) =>{
 
 getComics = (storyId) =>{
 
-  marvel.getstoriesbycomic(storyId)
+  marvel.getComicsByStory(storyId)
   .then(result=>{
         if(result.data.results.length==0){
             console.log("\n\n Sorry !No data available")
@@ -155,7 +156,7 @@ getComics = (storyId) =>{
 
 getCreators =(storyId) =>{
 
-  marvel.getstoriesbycreators(storyId)
+  marvel.getCreatorsByStory(storyId)
   .then(result=>{
     console.log()
     result.data.results.forEach(res=>{
@@ -171,7 +172,7 @@ getCreators =(storyId) =>{
 }
 
 getSeries =(storyId)=>{
-  marvel.getstoriesbyseries(storyId)
+  marvel.getSeriesByStory(storyId)
   .then(result=>{
 
     if(result.data.results.length ==0){
@@ -204,7 +205,7 @@ getSeries =(storyId)=>{
 }
 
 getEvents= (storyId) =>{
-  marvel.getstoriesbyevent(storyId)
+  marvel.getEventsByStory(storyId)
   .then(result=>{
 
     if(result.data.results.length ==0){
