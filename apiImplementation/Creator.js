@@ -74,6 +74,7 @@ else if(options.id !=null )
 if(options.comic == true)
 {
 getall_comics(options.id)
+
 }
 
 else {
