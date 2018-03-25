@@ -1,7 +1,7 @@
 const
     marvel = require('marvelapi'),
     inquirer = require('inquirer')
-
+let Radio = require('prompt-radio');
 
 const start = (commandArgv)=>{
     //console.log(commandArgv)
@@ -86,6 +86,8 @@ getStoriesById=(storyId)=>{
         console.log("-----------------------------------------------------------------------------------\n\n")
       })
 
+      choices(storyId)
+
   	})
 
 }
@@ -99,7 +101,7 @@ getCharacters =(storyId) =>{
               console.log("\n\n Sorry !No data available")
           }
           else{
-            console.log(result)
+            //console.log(result)
             result.data.results.forEach(res=>{
 
               console.log(`Character Id:${res.id}`)
@@ -117,6 +119,7 @@ getCharacters =(storyId) =>{
 
               console.log()
             });
+            choices(storyId)
           }
     })
     .catch(error=>{
@@ -150,6 +153,7 @@ getComics = (storyId) =>{
 
             console.log()
           });
+          choices(storyId)
         }
   })
 }
@@ -168,6 +172,7 @@ getCreators =(storyId) =>{
 
       console.log()
     });
+    choices(storyId)
   })
 }
 
@@ -199,6 +204,7 @@ getSeries =(storyId)=>{
 
         console.log()
       });
+      choices(storyId)
     }
   })
 
@@ -229,46 +235,148 @@ getEvents= (storyId) =>{
 
         console.log()
       });
+      choices(storyId)
     }
   })
 
 }
 
 
-  /*  select =(storyId) =>{
+choices =(id) =>{
+  //console.log("i am here")
+	if(id== null)
+	{
 
-    	object = {}
+	}
+	else {
+		prompt2.run()
 
-    	prompt.run().then(answer=> {
-    		object.choice = answer[0]
-    }).then((choice)=>{
-    	Inquirer.prompt(questions)
-    	.then((ans)=>{
-    		object.storyId = ans;
+			.then(answer=> {
+				if(answer[0] == '1'){
 
-    	if(object.choice = '1'){
+          inquirer.prompt([{
+              type: 'input',
+              name: 'answer',
+              message: `Enter the character id`,
+              filter: (input) => {
+                  return parseInt(input)
+              }
+          }]).then((input) => {
+              marvel.getStoriesByType(input.answer,'characters')
+              .then(result=>{
+                displayStory(result)
+              })
+          })
 
-    getcharacters(object.storyId.answer)
+				}
+				else if(answer[0] == '2'){
+          inquirer.prompt([{
+              type: 'input',
+              name: 'answer',
+              message: `Enter the Comic id`,
+              filter: (input) => {
+                  return parseInt(input)
+              }
+          }]).then((input) => {
+            marvel.getStoriesByType(input.answer,'comics')
+            .then(result=>{
+              displayStory(result)
+            })
+          })
+				}
+				else if(answer[0] == '3'){
+          inquirer.prompt([{
+              type: 'input',
+              name: 'answer',
+              message: `Enter the Series id`,
+              filter: (input) => {
+                  return parseInt(input)
+              }
+          }]).then((input) => {
+            marvel.getStoriesByType(input.answer,'series')
+            .then(result=>{
+              displayStory(result)
+            })
+          })
+				}
+				else if(answer[0] == '4'){
+          inquirer.prompt([{
+              type: 'input',
+              name: 'answer',
+              message: `Enter the Event id`,
+              filter: (input) => {
+                  return parseInt(input)
+              }
+          }]).then((input) => {
+            marvel.getStoriesByType(input.answer,'events')
+            .then(result=>{
+              displayStory(result)
+            })
+          })
+				}
+        else if(answer[0] == '5'){
+          inquirer.prompt([{
+              type: 'input',
+              name: 'answer',
+              message: `Enter the Creator id`,
+              filter: (input) => {
+                  return parseInt(input)
+              }
+          }]).then((input) => {
+            marvel.getStoriesByType(input.answer,'creators')
+            .then(result=>{
+              displayStory(result)
+            })
+          })
+        }
+
+
+			});
+	}
+
+}
+
+displayStory =(result) =>{
+
+  if (result.data.results.length==0){
+    console.log(" Sorry ! No data avaliable for this id!!")
+  }
+
+  result.data.results.forEach(res=>{
+    console.log(`Story Id : ${res.id}`)
+    console.log(`Story Title: ${res.title}`)
+    if(res.description != '' && res.description != null){
+      console.log(`Story Description:${res.description}`)
     }
-    else if(object.choice = '2'){
-    	object.choice = 2
-    getcreators(object.storyId.answer)
+    else{
+      console.log(`Story Description:Sorry,No Description is avaible for this story`)
     }
-    else if(object.choice = '3'){
-    	object.choice = 3
-    getstories(object.storyId.answer)
-    }
-    else if(object.choice = '4'){
-    	object.choice = 4
-    getevents(object.storyId.answer)
-    }
-    console.log(object)
+    console.log(`Story Type:${res.type}`)
+    console.log("Stories appering in :")
+    console.log(`  ->Comics  :${res.comics.available} times`)
+    console.log(`  ->Series  :${res.series.available} times`)
+    console.log(`  ->Events  :${res.events.available} times ` )
+    console.log()
+    console.log(`Number of Characters appear in this story   :${res.characters.available}`)
+    console.log(`Number of Creators who worked for this story:${res.creators.available}`)
+    console.log(`Originally published in :${res.originalIssue.name}`)
 
-    	})
-    });
+    console.log("-----------------------------------------------------------------------------------\n\n")
+  })
 
-  }*/
-
+}
+  let prompt2 = new Radio({
+  	name: 'colors',
+  	message: 'Get the stories based on below parameters:',
+  	choices: [
+  	'1.Fetch Stories by Character Id',
+  	'2.Fetch Stories by Comic Id',
+    '3.Fetch Stories by Series Id',
+    '4.Fetch Stories by Events Id',
+    '5.Fetch Stories by Creator Id',
+    '6.Exit',
+  	]
+  });
 
 
 module.exports={
