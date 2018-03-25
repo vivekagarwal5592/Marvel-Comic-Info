@@ -1,0 +1,19 @@
+{
+  "name": "marvels-app",
+  "version": "1.0.0",
+  "description": "Marvels app - To interact with marvels api for events and series.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohit Sharma",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "inquirer": "^5.1.0",
+    "marvels": "file:../marvels",
+    "progress-bar-formatter": "^2.0.1",
+    "prompt-radio": "^1.2.1",
+    "yargs": "^11.0.0"
+  }
+}
