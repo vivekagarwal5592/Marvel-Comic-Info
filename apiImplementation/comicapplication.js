@@ -37,6 +37,42 @@ givecomicchoices(list)
 else if(options.id !=null ){
 getcomicsbyid(options.id)
 }
+
+else{
+
+
+
+
+let list = []
+		marvel.comics()
+		.then(result =>{ 
+
+if(result.data.results.length >0){
+
+
+			result.data.results.forEach(items=>{
+				val = items.title + ':' + items.id
+				list.push(val)
+
+			});
+			return list
+		}
+		else {
+			console.log("Sorry! No comic found with the given title")
+			return null
+		}
+		}).then(list=>{
+			if(list !=null){
+givecomicchoices(list)
+			console.log()
+			}
+
+			
+		});
+
+}
+
+
 }
 
 givecomicchoices =(list) =>{

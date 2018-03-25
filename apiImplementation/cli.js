@@ -15,7 +15,6 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
         .option('characterid', {
             alias:'id',
             describe: 'This method fetches a single character resource.',
-
             default: null
         })
          .option('charactername', {

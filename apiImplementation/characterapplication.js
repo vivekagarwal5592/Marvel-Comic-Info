@@ -4,6 +4,7 @@ var Radio = require('prompt-radio');
 
 module.exports.run = options => {
 
+console.log(options)
 
 if(options.id ==null && options.name==null){
 		marvel.characters()
