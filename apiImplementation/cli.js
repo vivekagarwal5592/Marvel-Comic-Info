@@ -2,7 +2,7 @@ const
 comicapplication = require('./comicapplication'),
 characterapplication = require('./characterapplication'),
 storiesapplication = require('./storiesapplication')
-//Creator=require('./Creator')
+Creator=require('./Creator')
 
 yargs = require('yargs')
 
@@ -66,7 +66,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
             describe: 'This method fetches a single comic resource.',
             default: null
         })
-      
+
     },
     handler: (argv) => { comicapplication.run(argv) }
 })

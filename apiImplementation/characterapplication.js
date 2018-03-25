@@ -4,13 +4,11 @@ var Radio = require('prompt-radio');
 
 module.exports.run = options => {
 
-	//console.log(options)
-
-
 
 if(options.id ==null && options.name==null){
 		marvel.characters()
 		.then(result =>{ //console.log(result)
+console.log("I am in charcaters")
 
 			result.data.results.forEach(items=>{
 
@@ -68,20 +66,10 @@ else{
 }).then(charcaterbyid=>{
 
 if(charcaterbyid !=null){
-<<<<<<< HEAD
 givechoices(charcaterbyid)
-=======
-givecharcaterchoices(charcaterbyid) 
->>>>>>> master
 }
-
-
-
-
 });
 }
-
-
 else if(options.id !=null ){
 //	console.log(options)
 //marvel.getcharacterbyid(options.id)
@@ -131,12 +119,11 @@ return result.data.results[0].id
 }
 else{
 	console.log("No Details found for the given character id")
-	return null
 }
 }).then(charcaterbyid=>{
-	if(charcaterbyid !=null){
+{
 
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	}
 
 });
@@ -173,7 +160,7 @@ marvel.getcharacterbystories(charcaterbyid)
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 
 
@@ -204,7 +191,7 @@ getcharacterbyseries = (charcaterbyid)=>{
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 
 
@@ -234,7 +221,7 @@ getcharacterbyevents = (charcaterbyid)=>{
 		});
 }
 	}).then(()=>{
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 
 
@@ -270,13 +257,14 @@ else{
 }
 	}).then(()=>{
 
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 }
 
 
 
-givecharcaterchoices =(charcaterbyid) =>{
+givechoices =(charcaterbyid) =>{
+
 prompt.run()
 
 	.then(answer=> {
