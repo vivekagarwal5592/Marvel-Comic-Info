@@ -1,12 +1,9 @@
 const
 comicapplication = require('./comicapplication'),
 characterapplication = require('./characterapplication'),
-<<<<<<< HEAD
-//Creator=require('./Creator')
-=======
 storiesapplication = require('./storiesapplication')
-Creator=require('./Creator')
->>>>>>> 607ea451c633c51a02948747c6926e78d135e509
+//Creator=require('./Creator')
+
 yargs = require('yargs')
 
 const flags = yargs.usage('$0: Usage <cmd> [options]')

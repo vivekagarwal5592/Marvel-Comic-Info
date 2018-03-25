@@ -4,14 +4,13 @@ var Radio = require('prompt-radio');
 
 module.exports.run = options => {
 
-	console.log(options)
+	//console.log(options)
 
 
 
 if(options.id ==null && options.name==null){
 		marvel.characters()
 		.then(result =>{ //console.log(result)
-console.log("I am in charcaters")
 
 			result.data.results.forEach(items=>{
 
@@ -274,7 +273,6 @@ givecharcaterchoices(charcaterbyid)
 
 
 givecharcaterchoices =(charcaterbyid) =>{
-console.log("in give choices")
 prompt.run()
 
 	.then(answer=> {

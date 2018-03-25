@@ -10,6 +10,8 @@ module.exports.run = options => {
 		marvel.getcomicbytitle(options.title)
 		.then(result =>{ 
 
+if(result.data.results.length >0){
+
 
 			result.data.results.forEach(items=>{
 				val = items.title + ':' + items.id
@@ -17,9 +19,18 @@ module.exports.run = options => {
 
 			});
 			return list
+		}
+		else {
+			console.log("Sorry! No comic found with the given title")
+			return null
+		}
 		}).then(list=>{
-			givecomicchoices(list)
+			if(list !=null){
+givecomicchoices(list)
 			console.log()
+			}
+
+			
 		});
 	}
 
