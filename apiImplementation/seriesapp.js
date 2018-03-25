@@ -117,11 +117,11 @@ const
         name: 'seriesCat',
         message: '\nWant to know more about the Series?',
         choices: [
-            '1. Appeared in Creators.',
-            '2. Appeared in Characters',
-            '3. Appeared in Stories',
-            '4. Appeared in Comics',
-            '5. Appeared in Events',
+            '1. Creators of this Series.',
+            '2. Characters in this Series.',
+            '3. Stories in this Series.',
+            '4. Comics in this Series.',
+            '5. Events for this Series.',
             '6. Exit\n\n'
         ]
     });
