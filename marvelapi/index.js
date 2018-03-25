@@ -199,6 +199,77 @@ exports.getStoriesByType =(id,type)=>{
 }
 
 
+// Fetch the lists of all events.
+// or, fetch a specific event by id, name.
+// Look for characters, stories... in a specific event.
+exports.events = () => {
+    return _fetch('v1/public/events')
+}
+
+exports.getEventsByName = (eventName) => {
+    return _fetchbyname('v1/public/events',eventName)
+}
+
+exports.getEventById = (id) => {
+    return _fetch(`v1/public/events/${id}`)
+}
+
+exports.getEventByIdCharacters = (id) => {
+    return _fetch(`v1/public/events/${id}/characters`)
+}
+
+exports.getEventByIdComics = (id) => {
+    return _fetch(`v1/public/events/${id}/comics`)
+}
+
+exports.getEventByIdCreators = (id) => {
+    return _fetch(`v1/public/events/${id}/creators`)
+}
+
+exports.getEventByIdSeries = (id) => {
+    return _fetch(`v1/public/events/${id}/series`)
+}
+
+exports.getEventByIdStories = (id) => {
+    return _fetch(`v1/public/events/${id}/stories`)
+}
+
+
+// Fetch the lists of all series.
+// or, fetch a specific series by id, name.
+// Look for characters, stories... in a specific series.
+exports.series = () => {
+    return _fetch('v1/public/series')
+}
+
+exports.getSeriesByName = (serieName) => {
+    return _fetchbyname(`v1/public/series`, serieName)
+}
+
+exports.getSeriesById = (id) => {
+    return _fetch(`v1/public/series/${id}`)
+}
+
+exports.getSeriesByIdCharacters = (id) => {
+    return _fetch(`v1/public/series/${id}/characters`)
+}
+
+exports.getSeriesByIdComics = (id) => {
+    return _fetch(`v1/public/series/${id}/comics`)
+}
+
+exports.getSeriesByIdCreators = (id) => {
+    return _fetch(`v1/public/series/${id}/creators`)
+}
+
+exports.getSeriesByIdEvents = (id) => {
+    return _fetch(`v1/public/series/${id}/events`)
+}
+
+exports.getSeriesByIdStories = (id) => {
+    return _fetch(`v1/public/series/${id}/stories`)
+}
+
 //https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=84e3724042b71f9fe7a8456a11068da3&hash=7581c5870f9020b12ea7ec3c3c454c69
 //public key :84e3724042b71f9fe7a8456a11068da3
 //private key: 96f392916eb4bdfb4f9175b03dfa8366f97f4d5d

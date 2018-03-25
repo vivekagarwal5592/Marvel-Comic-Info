@@ -1,6 +1,6 @@
 const
     // Custom module to query external api: marvel.com
-    marvels = require('marvels'),
+    marvels = require('marvelapi'),
     // Required to display radio options.
     Radio = require('prompt-radio');
 
@@ -103,7 +103,6 @@ const
     
 module.exports.run = options => {
     if ( options.id == null && options.name == null ) {
-        console.log("In if - both null.")
         marvels.events()
                 .then( (resources) => {
                     console.log()
@@ -122,11 +121,9 @@ module.exports.run = options => {
                 });
                 
     } else if ( options.name != null ) {
-        console.log("In else if - id null.")
         marvels.getEventsByName( options.name.replace(/ /g, "%20") )
                 .then( (resources) => {
                     console.log()
-                    console.log(resources.data.results)
                     resources.data.results.forEach( (items) => {
                         console.log(`Event ID: ${items.id}`);
                         console.log(`Event Name: ${items.title}`)
@@ -145,7 +142,6 @@ module.exports.run = options => {
                     giveEventChoices( eventID);
                 })
     } else if ( options.id != null ) {
-        console.log("In else if - name null.")
         if ( !options.creators && !options.characters && !options.stories && !options.comics && !options.series) {
             marvels.getEventById(options.id)
                     .then( (resources) => {

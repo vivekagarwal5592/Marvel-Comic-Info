@@ -1,8 +1,7 @@
 #Ignore node modules directories:
 /apiImplementation/node_modules/
 /marvelapi/node_modules/
-/events-series/marvels/node_modules/
-/events-series/marvels/node_modules/
 
-#local config file.
-/events-series/marvels/myconfig.json
+#Ignore IDE files:
+.DS_Store
+.vscode
