@@ -4,13 +4,11 @@ var Radio = require('prompt-radio');
 
 module.exports.run = options => {
 
-	//console.log(options)
-
-
 
 if(options.id ==null && options.name==null){
 		marvel.characters()
 		.then(result =>{ //console.log(result)
+console.log("I am in charcaters")
 
 			result.data.results.forEach(items=>{
 
@@ -68,16 +66,10 @@ else{
 }).then(charcaterbyid=>{
 
 if(charcaterbyid !=null){
-givecharcaterchoices(charcaterbyid) 
+givechoices(charcaterbyid)
 }
-
-
-	
-
 });
 }
-
-
 else if(options.id !=null ){
 //	console.log(options)
 //marvel.getcharacterbyid(options.id)
@@ -127,12 +119,11 @@ return result.data.results[0].id
 }
 else{
 	console.log("No Details found for the given character id")
-	return null
 }
 }).then(charcaterbyid=>{
-	if(charcaterbyid !=null){
+{
 
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	}
 
 });
@@ -169,10 +160,10 @@ marvel.getcharacterbystories(charcaterbyid)
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 
-	
+
 }
 
 
@@ -200,10 +191,10 @@ getcharacterbyseries = (charcaterbyid)=>{
 				console.log(`About the Comic: Sorry! No Description available`)
 			}
 	}).then(()=>{
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 
-	
+
 }
 
 
@@ -230,10 +221,10 @@ getcharacterbyevents = (charcaterbyid)=>{
 		});
 }
 	}).then(()=>{
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 
-	
+
 }
 
 getcharacterbycomics = (charcaterbyid)=>{
@@ -266,13 +257,14 @@ else{
 }
 	}).then(()=>{
 
-givecharcaterchoices(charcaterbyid)
+givechoices(charcaterbyid)
 	})
 }
 
 
 
-givecharcaterchoices =(charcaterbyid) =>{
+givechoices =(charcaterbyid) =>{
+
 prompt.run()
 
 	.then(answer=> {
@@ -297,7 +289,7 @@ var prompt = new Radio({
 	name: 'colors',
 	message: 'Want to know more about the character?',
 	choices: [
-	'1.Appeared in Comics',
+	'1.Appeared in Comic',
 	'2.Appeared in Series',
 	'3.Appeared in Stories',
 	'4.Appeared in Events',
