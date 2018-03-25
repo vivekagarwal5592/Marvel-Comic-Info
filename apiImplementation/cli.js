@@ -59,24 +59,33 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
             describe: 'This method fetches a single comic resource.',
             default: null
         })
+         .option('title', {
+            alias:'t',
+            describe: 'This method fetches a single comic resource.',
+            default: null
+        })
         .option('characters', {
             alias:'char',
             describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
+             type:'boolean',
         default: false
  })
          .option('creators', {
             alias:'creator',
             describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
+             type:'boolean',
         default: false
  })
           .option('events', {
             alias:'e',
             describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
+             type:'boolean',
         default: false
  })
            .option('stories', {
             alias:'s',
             describe: 'Fetches lists of characters which appear in a specific comic. Needs to be used in conjuction with comic id',
+             type:'boolean',
        default: false
  })
     },
@@ -136,21 +145,25 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
         .option('characters', {
             alias:'char',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
+            type:'boolean',
         default: false
  })
          .option('comics', {
             alias:'comic',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
+            type:'boolean',
         default: false
  })
           .option('creators', {
             alias:'creator',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
+            type:'boolean',
         default: false
  })
            .option('stories', {
             alias:'s',
             describe: 'Fetches lists of characters which appear in a specific creators. Needs to be used in conjuction with creators id',
+            type:'boolean',
        default: false
  })
     },
@@ -169,21 +182,25 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
         .option('characters', {
             alias:'char',
             describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            type:'boolean',
         default: false
  })
          .option('comics', {
             alias:'comic',
             describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            type:'boolean',
         default: false
  })
           .option('creators', {
             alias:'creator',
             describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            type:'boolean',
         default: false
  })
            .option('events', {
             alias:'e',
             describe: 'Fetches lists of characters which appear in a specific stories. Needs to be used in conjuction with stories id',
+            type:'boolean',
        default: false
  })
     },
