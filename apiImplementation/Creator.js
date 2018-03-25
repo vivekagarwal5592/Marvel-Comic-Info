@@ -391,7 +391,7 @@ getcreatorbycomics=(creatorsid)=>{
 					console.log(`Number of creators of Comics: ${items.creators.available}`);
 					console.log("********************************************************");
 					console.log(`Characters Appeared in comics: ${items.characters.available}`);
-					console.log("********************************************************");
+					console.log("\n");
 			});
 	}
 	else{
