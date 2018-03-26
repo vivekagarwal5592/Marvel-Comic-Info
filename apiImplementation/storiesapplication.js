@@ -10,6 +10,11 @@ const start = (commandArgv)=>{
         marvel.stories()
         .then(result=>{
 
+          if(result.code!=200){
+              console.log("Sorry ! No Data Available")
+          }
+          else{
+
             result.data.results.forEach(res=>{
               console.log(`Story Id : ${res.id}`)
               console.log(`Story Title: ${res.title}`)
@@ -31,6 +36,7 @@ const start = (commandArgv)=>{
 
               console.log("-----------------------------------------------------------------------------------\n\n")
             })
+          }
 
         })
 
@@ -64,6 +70,11 @@ getStoriesById=(storyId)=>{
 
     marvel.getStoriesById(storyId)
     .then(result=>{
+
+       if(result.code!=200){
+              console.log("Sorry ! No Data Available")
+          }
+          else{
       result.data.results.forEach(res=>{
         console.log(`Story Id : ${res.id}`)
         console.log(`Story Title: ${res.title}`)
@@ -85,8 +96,10 @@ getStoriesById=(storyId)=>{
 
         console.log("-----------------------------------------------------------------------------------\n\n")
       })
+       choices(storyId)
+    }
 
-      choices(storyId)
+     
 
   	})
 
@@ -96,8 +109,7 @@ getCharacters =(storyId) =>{
 
     marvel.getCharacterByStory(storyId)
     .then(result=>{
-        console.log(result)
-          if(result.data.results.length==0){
+        if(result.code!=200){
               console.log("\n\n Sorry !No data available")
           }
           else{
@@ -131,7 +143,7 @@ getComics = (storyId) =>{
 
   marvel.getComicsByStory(storyId)
   .then(result=>{
-        if(result.data.results.length==0){
+        if(result.code!=200){
             console.log("\n\n Sorry !No data available")
         }
         else{
@@ -162,7 +174,10 @@ getCreators =(storyId) =>{
 
   marvel.getCreatorsByStory(storyId)
   .then(result=>{
-    console.log()
+     if(result.status!=200){
+              console.log("Sorry ! No Data Available")
+          }
+          else{
     result.data.results.forEach(res=>{
       console.log(`FullName:${res.fullName}`)
 
@@ -173,7 +188,9 @@ getCreators =(storyId) =>{
       console.log()
     });
     choices(storyId)
+  }
   })
+
 }
 
 getSeries =(storyId)=>{
@@ -214,7 +231,7 @@ getEvents= (storyId) =>{
   marvel.getEventsByStory(storyId)
   .then(result=>{
 
-    if(result.data.results.length ==0){
+    if(result.code!=200){
       console.log("Sorry! No results")
     }
     else{
@@ -363,6 +380,7 @@ displayStory =(result) =>{
 
     console.log("-----------------------------------------------------------------------------------\n\n")
   })
+
 
 }
   let prompt2 = new Radio({

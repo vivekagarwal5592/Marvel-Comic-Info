@@ -1,7 +1,7 @@
 
 const marvel = require('marvelapi')
 var Radio = require('prompt-radio');
-const  Inquirer = require('inquirer');
+
 
 module.exports.run = options => {
 
@@ -39,9 +39,6 @@ getcomicsbyid(options.id)
 }
 
 else{
-
-
-
 
 let list = []
 		marvel.comics()

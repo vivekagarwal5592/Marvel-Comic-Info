@@ -4,12 +4,12 @@ var Radio = require('prompt-radio');
 
 module.exports.run = options => {
 
-console.log(options)
+//console.log(options)
 
-if(options.id ==null && options.name==null){
+if(options.id ==null && options.name==null){		
 		marvel.characters()
 		.then(result =>{ //console.log(result)
-console.log("I am in charcaters")
+//console.log("I am in charcaters")
 
 			result.data.results.forEach(items=>{
 
@@ -94,10 +94,7 @@ marvel.getcharacterbyid(options.id)
 		.then(result =>{ //console.log(result)
 //	console.log(options.name)
 
-if(result.code == 200){
-
-
-
+if(result.code ==200){
 result.data.results.forEach(items=>{
 
 	console.log(`Character Id:${items.id}`)
@@ -120,11 +117,14 @@ return result.data.results[0].id
 }
 else{
 	console.log("No Details found for the given character id")
+	return null;
 }
 }).then(charcaterbyid=>{
 {
-
+if(charcaterbyid !=null){
 givechoices(charcaterbyid)
+}
+
 	}
 
 });
@@ -287,7 +287,7 @@ getcharacterbyevents(charcaterbyid)
 
 
 var prompt = new Radio({
-	name: 'colors',
+	name: 'char',
 	message: 'Want to know more about the character?',
 	choices: [
 	'1.Appeared in Comic',

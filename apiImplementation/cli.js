@@ -11,6 +11,83 @@ const
 
 const flags = yargs.usage('$0: Usage <cmd> [options]')
 .command({
+    command:'search',
+    desc: '',
+    builder: (yargs) => {
+        return yargs
+        .option('character', {
+            alias:'char',
+            describe: 'Fetches character by id',
+            default: null
+        })
+        .option('comics', {
+            alias:'c',
+            describe: 'Fetches comics by id',
+        default: null
+ })
+
+          .option('creators', {
+            alias:'creator',
+            describe: 'Fetches creators by id',
+             
+        default: null
+ })
+         .option('events', {
+        describe: 'Fetches events by Id',
+         alias:'e',
+          default: null
+    })
+       .option('series', {
+        describe: 'Fetches series by id',
+         alias:'s',
+         
+          default: null
+    })
+         .option('stories', {
+        describe: 'Fetches stories by id',
+         alias:'st',
+          default: null
+    })
+    },
+    handler: (argv) => { 
+
+      if(argv.character !=null){
+let obj = {id: argv.character}
+         characterapplication.run(obj)
+      }
+
+     else  if(argv.comics !=null){
+let obj = {id: argv.comics}
+         comicapplication.run(obj)
+      }
+
+       else  if(argv.creators !=null){
+let obj = {id: argv.creators}
+         Creator.run(obj)
+      }
+
+        else  if(argv.stories !=null){
+let obj = {id: argv.stories}
+         storiesapplication.start(obj)
+      }
+
+        else  if(argv.events !=null){
+let obj = {id: argv.events}
+         eventsapp.run(obj)
+      }
+      
+        else  if(argv.series !=null){
+let obj = {id: argv.series}
+         seriesapp.run(obj)
+      }
+
+
+
+
+      }
+})
+
+.command({
     command:'characters',
     desc: 'Fetches lists of comic characters',
     builder: (yargs) => {
@@ -68,6 +145,7 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
             describe: 'This method fetches a single comic resource.',
             default: null
         })
+
 
     },
     handler: (argv) => { comicapplication.run(argv) }
