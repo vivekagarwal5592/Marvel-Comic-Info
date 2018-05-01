@@ -210,7 +210,7 @@ exports.getEventsByName = (eventName) => {
     return _fetchbyname('v1/public/events',eventName)
 }
 
-exports.getEventById = (id) => {
+exports.geteventsbyid = (id) => {
     return _fetch(`v1/public/events/${id}`)
 }
 
@@ -258,7 +258,7 @@ exports.getSeriesByIdComics = (id) => {
     return _fetch(`v1/public/series/${id}/comics`)
 }
 
-exports.getSeriesByIdCreators = (id) => {
+exports.getSeriesByIdCreators = (id) => {z
     return _fetch(`v1/public/series/${id}/creators`)
 }
 
