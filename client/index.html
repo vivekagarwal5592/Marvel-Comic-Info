@@ -44,8 +44,8 @@
     <div class="row" v-for="c in characterInfo">
       <div class="col-md-3" >
         <div><img  v-bind:src=c.image style="display: block;  max-width: 100%;height: auto;" /></div>
-        <div>{{c.charcatername}}</div>
-        <div>{{c.about_charcater}}</div>
+        <div style="font-weight:bold;text-align:center">{{c.charcatername}}</div>
+        <div style="text-align:justify">{{c.about_charcater}}</div>
 
         <div class="card" >
           <div class="card-header">
