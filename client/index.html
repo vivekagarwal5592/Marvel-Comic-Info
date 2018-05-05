@@ -29,7 +29,8 @@
 
         <!-- <div class="col-md-4" ></div> -->
         <div v-if="!showDetails">
-          <nav class=" row navbar navbar-expand-lg navbar-light bg-light mb-2 mt-2">
+          <nav v-if="showSearchBar" class=" row navbar navbar-expand-lg navbar-light bg-light mb-2 mt-2">
+            <div ></div>
             <div class="col-md-9" >
               <input class="form-control mr-sm-2" type="text" placeholder="Character Name"
               aria-label="Search" v-model="charactername">

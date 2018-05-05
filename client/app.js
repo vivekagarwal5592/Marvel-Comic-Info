@@ -62,7 +62,8 @@ const comicComponent = {
       comicinfo :{title:null},
       previoussearches : [],
       type: ['Comics','Series','Events'],
-      showDetails : false
+      showDetails : false,
+      showSearchBar : true
     },
     methods: {
       characterinformation : function(){
@@ -73,6 +74,7 @@ const comicComponent = {
         .then(result =>{
           let vm = this
           vm.characterInfo = []
+          vm.showSearchBar = false;
           result.data.data.results.forEach(items=>{
             let d = {}
             d['charcaterId'] =items.id
@@ -102,6 +104,8 @@ const comicComponent = {
         let comicid = temp[temp.length-1]
         let checkForComicSeriesEvent =  temp[temp.length-2]
         vm.showDetails = true
+        vm.characterInfo = []
+        vm.charactername = ""
         axios.get(`http://localhost:8080/get${checkForComicSeriesEvent}byid/${comicid}`).then(
           results=>{
             results.data.data.results.forEach(items=>{
@@ -115,6 +119,7 @@ const comicComponent = {
       },
       searchagain : function(){
           let vm = this
+          vm.showSearchBar = true
         vm.showDetails = false
       },
       previouscharacterinformation : function(charactername){
