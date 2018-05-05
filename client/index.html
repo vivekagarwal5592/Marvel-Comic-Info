@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Chat App</title>
+  <title>Marvel Search</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
   integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -20,65 +20,61 @@
 </head>
 
 <body>
-  <div class="container" id="marvel-app">
-    <nav class=" row navbar navbar-expand-lg navbar-light bg-light mb-2 mt-2">
-      <div class="col-md-3">
-        <a class="navbar-brand" href="#">Marvel Character Details</a>
-      </div>
-      <div class="col-md-5" >
-        <input class="form-control mr-sm-2" type="text" placeholder="Character Name" aria-label="Search" v-model="charactername">
-      </div>
-      <div class="col-md-3" >
-        <button class="btn btn-outline-success my-2 my-sm-0" @click="characterinformation">Search</button>
-      </div>
-    </nav>
-    <div class="row" v-for="c in characterInfo">
-      <div class="col-md-3" >
-        <div><img  v-bind:src=c.image style="display: block;  max-width: 100%;height: auto;" /></div>
-        <div style="font-weight:bold;text-align:center">{{c.charcatername}}</div>
-        <div style="text-align:justify">{{c.about_charcater}}</div>
-        <div class="card" >
-          <div class="card-header">
-            Previous Searches
-          </div>
-          <ul class="list-group list-group-flush">
-            <li style="cursor:pointer;"  v-for="p in previoussearches" class="list-group-item"
-            @click="previouscharacterinformation(p)">{{p}}</li>
-          </ul>
+  <div style="margin:10px;" id="marvel-app">
+    <div class="row">
+      <div class="col-md-9" >
+        <div class = "page-header"><h1>Marvel Character Search</h1>
+          <h6 style="font-weight:bold">Get Details about Marvel Characters</h6>
         </div>
 
-      </div>
-      <div class="col-md-3">
-        <comic-component v-bind:comics="c.comics"  @event="getComicInfo" v-bind:type="type[0]"></comic-component>
-      </div>
-      <div class="col-md-3" >
-        <comic-component v-bind:comics="c.series"  @event="getComicInfo" v-bind:type="type[1]"></comic-component>
-      </div>
-      <div class="col-md-3" >
-        <comic-component v-bind:comics="c.events"  @event="getComicInfo" v-bind:type="type[2]"></comic-component>
-      </div>
-      <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">{{comicinfo.title}}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+        <!-- <div class="col-md-4" ></div> -->
+        <div v-if="!showDetails">
+          <nav class=" row navbar navbar-expand-lg navbar-light bg-light mb-2 mt-2">
+            <div class="col-md-9" >
+              <input class="form-control mr-sm-2" type="text" placeholder="Character Name"
+              aria-label="Search" v-model="charactername">
             </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-5">  <img :src="comicinfo.image" style="display: block;  max-width: 100%;max-height: 300px;" /></div>
-                <div class="col-md-7">
-                  <div>{{comicinfo.description}}</div>
-                  <div><a :href="comicinfo.url">URL</a></div>
-                </div>
+            <div class="col-md-3" >
+              <button class="btn btn-outline-success my-2 my-sm-0" @click="characterinformation">Search</button>
+            </div>
+          </nav>
+          <div class="row" v-for="c in characterInfo">
+            <div class="col-md-3" >
+              <div><img  v-bind:src=c.image style="display: block;  max-width: 100%;height: auto;" /></div>
+              <div style="font-weight:bold;text-align:center">{{c.charcatername}}</div>
+              <div style="text-align:justify">{{c.about_charcater}}</div>
+
+            </div>
+            <div class="col-md-3">
+              <comic-component v-bind:comics="c.comics"  @url-clicked="getComicInfo" v-bind:type="type[0]"></comic-component>
+            </div>
+            <div class="col-md-3" >
+              <comic-component v-bind:comics="c.series"  @url-clicked="getComicInfo" v-bind:type="type[1]"></comic-component>
+            </div>
+            <div class="col-md-3" >
+              <comic-component v-bind:comics="c.events"  @url-clicked="getComicInfo" v-bind:type="type[2]"></comic-component>
+            </div>
+
+          </div>
+        </div>
+        <div v-else>
+          <div class="row">
+            <div class="col-md-3" >
+              <div><img  v-bind:src="comicinfo.image" style="display: block;  max-width: 100%;height: auto;" /></div>
+            </div>
+            <div class="col-md-9" >
+              <div style="font-weight:bold;font-size:20px;">{{comicinfo.title}}</div>
+              <div>{{comicinfo.description}}</div>
+              <div><a :href="comicinfo.url" class="btn btn-dark">Go to Link</a>
+              <button @click="searchagain" class="btn btn-dark">Search Again</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-
+      <div class="col-md-3" >
+      <character-component v-bind:previoussearches="previoussearches" @previous-search-clicked="previouscharacterinformation">  </character-component>
+      </div>
     </div>
   </div>
 </div>
