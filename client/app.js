@@ -28,12 +28,11 @@ const comicComponent = {
     }
   }
 
-  const characterComponent = {
+  const searchComponent = {
   template : `  <div class="card text-white bg-dark" >
       <div class="card-header border-light">
         Search History
       </div>
-
       <ul class="list-group list-group-flush">
         <li style="cursor:pointer;"  v-for="p in previoussearches" class="list-group-item bg-dark border-light"
         @click="previouscharacterinformation(p)">{{p}}</li>
@@ -51,7 +50,6 @@ const comicComponent = {
           this.$emit('previous-search-clicked', characterclicked)
         }
       }
-
   }
 
   const app = new Vue({
@@ -69,7 +67,6 @@ const comicComponent = {
       characterinformation : function(){
         let vm = this
         vm.previoussearches.push(vm.charactername)
-        console.log('clicked')
         axios.get(`http://localhost:8080/characterinfo/${this.charactername}`)
         .then(result =>{
           let vm = this
@@ -99,6 +96,7 @@ const comicComponent = {
         })
       },
       getComicInfo : function(comicurl){
+        console.log(comicurl)
         let vm = this
         let temp = comicurl.split('/')
         let comicid = temp[temp.length-1]
@@ -129,7 +127,7 @@ const comicComponent = {
 
     components: {
       'comic-component': comicComponent,
-      'character-component': characterComponent
+      'search-component': searchComponent
     }
   })
 
