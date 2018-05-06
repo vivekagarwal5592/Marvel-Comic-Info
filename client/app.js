@@ -15,7 +15,7 @@ const comicComponent = {
   props : {
     comics: {
       name:'comics',
-      type: Object,
+      type: Array,
       required:true},
       type: {name:'type',
       type: String,
@@ -61,15 +61,20 @@ const comicComponent = {
       previoussearches : [],
       type: ['Comics','Series','Events'],
       showDetails : false,
-      showSearchBar : true
+      showSearchBar : true,
+      loading : false,
+      noResult : 'Sorry, there are no results for your Search',
+      shownoResult: false
     },
     methods: {
       characterinformation : function(){
         let vm = this
-        vm.previoussearches.push(vm.charactername)
+        vm.loading = true
+
         axios.get(`http://localhost:8080/characterinfo/${this.charactername}`)
         .then(result =>{
-          let vm = this
+          if(result.data.data.count>0 ){
+          vm.previoussearches.push(vm.charactername)
           vm.characterInfo = []
           vm.showSearchBar = false;
           result.data.data.results.forEach(items=>{
@@ -91,8 +96,16 @@ const comicComponent = {
             for(let count=0;count<10 && count<items.events.items.length;count++){
               d.events.push({'resourceURI':items.events.items[count].resourceURI,'name':items.events.items[count].name})
             }
+
             vm.characterInfo.push(d)
+
           });
+vm.loading = false
+}
+else{
+  vm.shownoResult = true
+  console.log("Empty Object")
+}
         })
       },
       getComicInfo : function(comicurl){
