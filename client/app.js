@@ -62,14 +62,12 @@ const comicComponent = {
       type: ['Comics','Series','Events'],
       showDetails : false,
       showSearchBar : true,
-      loading : false,
       noResult : 'Sorry, there are no results for your Search',
       shownoResult: false
     },
     methods: {
       characterinformation : function(){
         let vm = this
-        vm.loading = true
 
         axios.get(`http://localhost:8080/characterinfo/${this.charactername}`)
         .then(result =>{
@@ -96,20 +94,17 @@ const comicComponent = {
             for(let count=0;count<10 && count<items.events.items.length;count++){
               d.events.push({'resourceURI':items.events.items[count].resourceURI,'name':items.events.items[count].name})
             }
-
             vm.characterInfo.push(d)
 
           });
-vm.loading = false
+
 }
 else{
   vm.shownoResult = true
-  console.log("Empty Object")
 }
         })
       },
       getComicInfo : function(comicurl){
-        console.log(comicurl)
         let vm = this
         let temp = comicurl.split('/')
         let comicid = temp[temp.length-1]
